@@ -8,5 +8,7 @@
         <item name="android:navigationBarColor">@color/bg</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
+        <!-- 必须与 values/themes.xml 保持一致：night 版是完整替换，漏掉就会退回默认值 -->
+        <item name="android:windowNoTitle">true</item>
     </style>
 </resources>

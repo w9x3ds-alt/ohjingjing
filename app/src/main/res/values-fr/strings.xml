@@ -4,7 +4,7 @@
 
     <string name="home_title_1">Baleine</string>
     <string name="home_title_2">HUD</string>
-    <string name="home_subtitle">v2.1.2 · Superposition du solde DeepSeek</string>
+    <string name="home_subtitle">v2.1.3 · Superposition du solde DeepSeek</string>
     <string name="perm_granted">● Autorisation de superposition accordée</string>
     <string name="perm_denied">● Autorisation de superposition non accordée</string>
     <string name="label_endpoint">Point d\'accès</string>
@@ -76,7 +76,7 @@
     <string name="page_info">À propos</string>
     <string name="group_app">Application</string>
     <string name="label_version">Version</string>
-    <string name="version_value">2.1.2</string>
+    <string name="version_value">2.1.3</string>
     <string name="label_developer">Développeur</string>
     <string name="developer_value">dheye62</string>
     <string name="label_license">Licence</string>

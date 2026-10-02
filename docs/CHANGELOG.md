@@ -5,6 +5,28 @@ each release also ships a self-contained source snapshot as a GitHub Release ass
 
 ---
 
+## 2.1.3 — 2026-10-02
+
+**Fixed: duplicated system title bar in dark mode.**
+
+2.1.2 declared it had removed the redundant system title bar, but a device screenshot showed it
+still there. The cause: `values-night/themes.xml` defines an `AppTheme` with the **same name** as
+`values/themes.xml`, and the resource system **replaces** the definition wholesale in dark mode
+rather than merging it. 2.1.2 only added `windowNoTitle` to the light variant:
+
+```
+values/themes.xml        windowNoTitle = true    ✓
+values-night/themes.xml  (missing)  → defaults to false   ✗
+```
+
+The device runs dark mode, so it took the night variant and the title bar remained.
+
+Same class of mistake as the 2.1.1 → 2.1.2 cycle: **the change was correct, but its scope was not
+checked.** Both themes now carry the item, with a comment noting that the night variant is a full
+replacement.
+
+---
+
 ## 2.1.2 — 2026-10-02
 
 **Fixed: option lists rendered one character per line**

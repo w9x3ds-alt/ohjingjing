@@ -2,6 +2,12 @@
 
 > **English version →** [README.md](README.md)
 
+<p align="center">
+  <img src="docs/screenshots/home.jpg" width="290" alt="首页">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/overlay.png" width="220" alt="桌面上的悬浮窗">
+</p>
+
 一个 Android 悬浮窗应用，用于实时监控 DeepSeek API 账户余额。
 
 余额显示为常驻屏幕的卡通形象，并支持余额变动提醒。界面提供高峰期/空闲期费率设置、法定节假日识别与多语言支持。

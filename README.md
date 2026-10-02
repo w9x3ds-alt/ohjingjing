@@ -5,6 +5,12 @@ A small character sits in the corner of your screen — when the balance drops, 
 
 **[中文说明 →](README.zh-CN.md)**
 
+<p align="center">
+  <img src="docs/screenshots/home.jpg" width="290" alt="Home screen">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/overlay.png" width="220" alt="Overlay on the desktop">
+</p>
+
 ---
 
 ## Features
@@ -51,7 +57,7 @@ A small character sits in the corner of your screen — when the balance drops, 
 
 ## Install
 
-1. Download `WhaleHud-2.1.1.apk` from the Releases page
+1. Download `WhaleHud-2.1.3.apk` from the Releases page
 2. Open the app and tap the permission pill on the home screen to grant overlay access
 3. Enter your own DeepSeek API key on the settings page
 4. Back on the home screen, tap **Start overlay**
@@ -137,6 +143,7 @@ costs.
 | 2.1 | 2026-10-02 | Motion token system, 4 languages, settings page moved to WebView, tap feedback redesign |
 | 2.1.1 | 2026-10-02 | Stop button on home, custom picker replaces broken `<select>`, overflow menu + language switching |
 | 2.1.2 | 2026-10-02 | Fix option list rendering (JSON array sent as string), fix stale lines after language switch, UI clarity |
+| 2.1.3 | 2026-10-02 | Fix duplicated system title bar in dark mode (`values-night` theme replaces the light one wholesale) |
 
 See [`docs/CHANGELOG.md`](docs/CHANGELOG.md) for details, and [`docs/NOTES.md`](docs/NOTES.md)
 for the development log — including the approaches that failed.

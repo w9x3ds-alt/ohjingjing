@@ -34,7 +34,7 @@ x = open(src, encoding='utf-8').read()
 x = x.replace(
     '<manifest xmlns:android="http://schemas.android.com/apk/res/android">',
     '<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="%s"\n'
-    '    android:versionCode="5" android:versionName="2.1.2">\n'
+    '    android:versionCode="6" android:versionName="2.1.3">\n'
     '    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="34" />' % pkg)
 open(dst, 'w', encoding='utf-8').write(x)
 print("   manifest ok:", pkg)

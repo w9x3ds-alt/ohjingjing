@@ -1,0 +1,18 @@
+# 构建产物
+build/
+*.idsig
+
+# 构建前自动备份
+_history/
+
+# 发布打包临时目录
+release/
+
+# Python
+__pycache__/
+*.pyc
+
+# 编辑器
+.idea/
+*.iml
+.vscode/

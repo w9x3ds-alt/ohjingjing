@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <!-- ==================== 首页 ==================== -->
+    <ScrollView
+        android:id="@+id/page_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="34dp"
+            android:paddingBottom="30dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView style="@style/PageTitle" android:text="@string/home_title_1" />
+                <TextView style="@style/PageTitle" android:text="@string/home_title_2"
+                    android:textColor="@color/accent" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/PageSub"
+                android:layout_marginTop="5dp"
+                android:text="@string/home_subtitle" />
+
+            <TextView
+                android:id="@+id/btn_perm"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/pill_soft"
+                android:gravity="center"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:text="@string/perm_denied"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView style="@style/GroupTitle" android:text="@string/section_status" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/NRow" android:paddingLeft="0dp" android:paddingRight="0dp" android:paddingTop="7dp" android:paddingBottom="7dp">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_endpoint" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                    <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+                    <TextView android:id="@+id/tv_endpoint" style="@style/NValue" android:singleLine="true" android:ellipsize="middle" android:text="api.deepseek.com" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:paddingLeft="0dp" android:paddingRight="0dp" android:paddingTop="7dp" android:paddingBottom="7dp">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_refresh" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                    <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+                    <TextView android:id="@+id/tv_interval_info" style="@style/NValue" android:text="@string/interval_default" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:paddingLeft="0dp" android:paddingRight="0dp" android:paddingTop="7dp" android:paddingBottom="7dp">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_api_key" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                    <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+                    <TextView android:id="@+id/tv_key_state" style="@style/NValue" android:text="@string/key_empty" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/GroupTitle" android:text="@string/section_preview" />
+
+            <LinearLayout style="@style/NCard">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <include
+                        layout="@layout/hud_window"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 开 / 关 放一起，方便随手切换 -->
+            <TextView style="@style/GroupTitle" android:text="@string/section_control" />
+
+            <LinearLayout
+                android:id="@+id/btn_show"
+                style="@style/NRow"
+                android:background="@drawable/row_ripple">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/action_show" />
+                    <TextView style="@style/NRowSub" android:text="@string/action_show_sub" />
+                </LinearLayout>
+                <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_stop"
+                style="@style/NRow"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/row_ripple">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/action_stop"
+                        android:textColor="@color/danger"
+                        android:textSize="15sp" />
+                    <TextView style="@style/NRowSub" android:text="@string/action_stop_sub" />
+                </LinearLayout>
+                <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_style"
+                style="@style/NRow"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/row_ripple">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/action_size" />
+                    <TextView android:id="@+id/tv_style_sub" style="@style/NRowSub" android:text="@string/size_big" />
+                </LinearLayout>
+                <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ==================== 设置（WebView · assets/settings.html） ==================== -->
+    <WebView
+        android:id="@+id/page_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- ==================== 关于 ==================== -->
+    <ScrollView
+        android:id="@+id/page_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="34dp"
+            android:paddingBottom="30dp">
+
+            <TextView style="@style/PageTitle" android:text="@string/menu_about" />
+
+            <TextView style="@style/GroupTitle" android:text="@string/group_app" />
+
+            <LinearLayout style="@style/NCard">
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_version" />
+                    <TextView style="@style/NRowSub" android:text="@string/version_value" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_developer" />
+                    <TextView style="@style/NRowSub" android:text="@string/developer_value" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_license" />
+                    <TextView style="@style/NRowSub" android:text="@string/license_value" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_compat" />
+                    <TextView style="@style/NRowSub" android:text="@string/compat_value" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/label_icon" />
+                    <TextView style="@style/NRowSub" android:text="@string/icon_value" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/GroupTitle" android:text="@string/group_contributors" />
+
+            <LinearLayout style="@style/NCard">
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView
+                        style="@style/NRowSub"
+                        android:layout_marginTop="2dp"
+                        android:lineSpacingExtra="3dp"
+                        android:text="@string/contributors_intro" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/contributors_core_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView android:id="@+id/tv_contrib_core" style="@style/NRowSub" android:layout_marginTop="0dp" android:lineSpacingExtra="6dp" android:text="" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/contributors_thanks_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView android:id="@+id/tv_contrib_thanks" style="@style/NRowSub" android:layout_marginTop="0dp" android:lineSpacingExtra="6dp" android:text="" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ==================== 浮动控件 ==================== -->
+
+    <!-- 菜单遮罩：点空白处收起菜单。放在按钮之下、内容之上 -->
+    <View
+        android:id="@+id/menu_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#26000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/icon_btn_bg"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_back"
+        android:tint="@color/text_primary"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/btn_menu"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/icon_btn_bg"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_more"
+        android:tint="@color/text_primary" />
+
+    <!-- 左上角弹出菜单：设置 / 关于 / 语言 -->
+    <LinearLayout
+        android:id="@+id/menu_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="12dp"
+        android:minWidth="168dp"
+        android:orientation="vertical"
+        android:background="@drawable/menu_panel_bg"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/menu_settings"
+            style="@style/MenuItem"
+            android:text="@string/menu_settings" />
+
+        <TextView
+            android:id="@+id/menu_about"
+            style="@style/MenuItem"
+            android:text="@string/menu_about" />
+
+        <TextView
+            android:id="@+id/menu_language"
+            style="@style/MenuItem"
+            android:text="@string/menu_language" />
+    </LinearLayout>
+
+    <!-- 语言选择 -->
+    <LinearLayout
+        android:id="@+id/lang_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="12dp"
+        android:minWidth="200dp"
+        android:orientation="vertical"
+        android:background="@drawable/menu_panel_bg"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:visibility="gone">
+
+        <TextView android:id="@+id/lang_system" style="@style/MenuItem" android:text="@string/lang_system" />
+        <TextView android:id="@+id/lang_zh" style="@style/MenuItem" android:text="@string/lang_zh" />
+        <TextView android:id="@+id/lang_en" style="@style/MenuItem" android:text="@string/lang_en" />
+        <TextView android:id="@+id/lang_fr" style="@style/MenuItem" android:text="@string/lang_fr" />
+        <TextView android:id="@+id/lang_ru" style="@style/MenuItem" android:text="@string/lang_ru" />
+    </LinearLayout>
+</FrameLayout>

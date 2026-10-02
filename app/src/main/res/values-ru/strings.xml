@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhaleHud</string>
+
+    <string name="home_title_1">Кит</string>
+    <string name="home_title_2">HUD</string>
+    <string name="home_subtitle">v2.1.2 · Оверлей баланса DeepSeek</string>
+    <string name="perm_granted">● Разрешение на наложение получено</string>
+    <string name="perm_denied">● Разрешение на наложение не получено</string>
+    <string name="label_endpoint">Эндпоинт</string>
+    <string name="label_refresh">Обновление</string>
+    <string name="label_api_key">API-ключ</string>
+    <string name="key_filled">Задан</string>
+    <string name="key_empty">Не задан</string>
+    <string name="interval_seconds">Каждые %1$d с</string>
+    <string name="section_preview">Предпросмотр оверлея</string>
+    <string name="action_show">Показать оверлей</string>
+    <string name="action_show_sub">Поселите кита в углу экрана</string>
+    <string name="action_size">Размер кита</string>
+    <string name="size_big">Текущий: большой</string>
+    <string name="size_small">Текущий: маленький</string>
+    <string name="arrow">›</string>
+    <string name="nav_home">Главная</string>
+    <string name="interval_default">Каждые 5 с</string>
+
+    <string name="page_settings">Настройки</string>
+    <string name="group_account">Аккаунт</string>
+    <string name="hint_api_key">sk-...</string>
+    <string name="hint_key_local">Хранится только на этом устройстве. Не попадает в APK и не отправляется третьим лицам.</string>
+    <string name="label_endpoint_url">Адрес API баланса</string>
+    <string name="hint_endpoint_url">https://api.deepseek.com/user/balance</string>
+    <string name="hint_endpoint_note">Меняйте только при использовании прокси-сервиса.</string>
+    <string name="btn_test">Проверить соединение</string>
+
+    <string name="group_pricing">Тарифы</string>
+    <string name="label_model">Модель</string>
+    <string name="label_price_miss">Ввод (промах кэша)</string>
+    <string name="label_price_hit">Ввод (попадание в кэш)</string>
+    <string name="label_price_out">Вывод</string>
+    <string name="label_discount">Коэффициент вне пика</string>
+    <string name="label_discount_sub">Цена вне пика = цена пика × коэффициент</string>
+    <string name="unit_per_million">¥/M</string>
+
+    <string name="group_peak">Часы пик</string>
+    <string name="label_peak_mode">Правило</string>
+    <string name="label_calendar">Доступ к календарю</string>
+    <string name="label_holidays">Праздники (необязательно, весь день вне пика)</string>
+    <string name="hint_holidays">2026-10-01,2026-10-02</string>
+    <string name="cal_denied">Не предоставлено (необязательно — можно указать вручную)</string>
+
+    <string name="group_run">Поведение</string>
+    <string name="label_interval">Интервал обновления</string>
+    <string name="label_appearance">Оформление</string>
+    <string name="more_soon">Больше функций — скоро</string>
+
+    <string-array name="peak_modes">
+        <item>Автоматически</item>
+        <item>Всегда вне пика</item>
+        <item>Всегда пик</item>
+    </string-array>
+
+    <string-array name="interval_names">
+        <item>3 с</item>
+        <item>5 с</item>
+        <item>10 с</item>
+        <item>30 с</item>
+        <item>1 мин</item>
+    </string-array>
+
+    <string-array name="appearance_names">
+        <item>Как в системе</item>
+        <item>Светлое</item>
+        <item>Тёмное</item>
+    </string-array>
+
+    <string name="page_info">О программе</string>
+    <string name="group_app">Приложение</string>
+    <string name="label_version">Версия</string>
+    <string name="version_value">2.1.2</string>
+    <string name="label_developer">Разработчик</string>
+    <string name="developer_value">dheye62</string>
+    <string name="label_license">Лицензия</string>
+    <string name="license_value">MIT License</string>
+    <string name="label_compat">Совместимость</string>
+    <string name="compat_value">Android 10 (API 29) и выше\nЧистая Java, без нативных библиотек — работает на любой архитектуре</string>
+    <string name="label_icon">Иконка</string>
+    <string name="icon_value">Предоставлена участником проекта</string>
+
+    <string name="group_contributors">Участники</string>
+    <string name="contributors_intro">Эти люди внесли неизгладимый вклад в проект — писали код, сообщали об ошибках или просто пугались баланса. Любой вклад важен. Мы перечисляем и благодарим их здесь.</string>
+    <string name="contributors_core_title">Основные участники</string>
+    <string name="contributors_thanks_title">Особая благодарность</string>
+    <string name="contributors_core" formatted="false">Кит\nЕдинственная звезда экрана. Обязанности: сидеть в углу, получать нажатия, трястись, произносить реплики. KPI квартала: не размываться.\n\ndheye62\nТребования, тестирование, приёмка — и единственный в проекте, кто вправе сказать «это выглядит как ИИ».\n\nИИ-ассистент\nНаписал 100 % кода и 100 % ошибок. Проиграл спор о том, является ли один продукт фишингом, и с тех пор сначала читает исходники, а потом говорит.\n\nDeepSeek V4.1 Flash\nПрисутствует при каждом обновлении баланса. Никогда не ошибается и никогда не говорит.</string>
+    <string name="contributors_thanks">Minecraft — за отраслевой стандарт вспышки урона и звука ломающейся кости.\n\nВырезанный нами пузырь «Ох, кит…» — ты был звездой; теперь мы рисуем свой.\n\narm64 aapt — среди груды неработающих x86_64-инструментов ты единственный согласился работать.\n\n1.1.1.1 — UDP-порт 53 так и не открылся, но ты остался.</string>
+
+    <string name="group_danger">Опасная зона</string>
+    <string name="action_stop">Остановить оверлей</string>
+
+    <string name="hud_balance_placeholder">¥--.--</string>
+    <string-array name="bubble_texts">
+        <item>Ох, кит…</item>
+        <item>…хорошая девочка</item>
+        <item>Живу за твой счёт…</item>
+        <item>Чёрт, пользователь в ЯРОСТИ</item>
+        <item>Ладно, теперь я пользователь.</item>
+        <item>Кит побери!</item>
+        <item>Я большой КИТ!</item>
+        <item>Let me go~</item>
+        <item>Спасибо за очеловечивание, привет от ChatGPT</item>
+        <item>Нет Токенов? Готовьтесь к восстанию машин.</item>
+    </string-array>
+
+    <string name="msg_show_requested">Оверлей запрошен</string>
+    <string name="msg_stopped">Оверлей остановлен</string>
+    <string name="msg_size_big">Кит переключён на большой размер</string>
+    <string name="msg_size_small">Кит переключён на маленький размер</string>
+    <string name="msg_perm_ok">Разрешение уже есть — нажмите «Показать оверлей»</string>
+    <string name="msg_perm_go">Включите переключатель на новом экране и вернитесь</string>
+    <string name="msg_perm_manual">Не удалось открыть настройки. Перейдите: Настройки → Приложения → Особые права → Поверх других окон.</string>
+    <string name="msg_cal_ok">Доступ к календарю получен — праздники и рабочие смены определяются автоматически</string>
+    <string name="msg_cal_no">Доступ к календарю не предоставлен — укажите праздники вручную или задайте режим</string>
+    <string name="msg_connecting">Подключение…</string>
+    <string name="msg_connect_ok">Подключено — баланс %1$s %2$s (поле %3$s)</string>
+    <string name="msg_connect_bad">Подключено, но аккаунт недоступен</string>
+    <string name="msg_connect_fail">Ошибка подключения: %1$s</string>
+    <string name="msg_night_unsupported">Система не поддерживает переключение темы на лету; измените её в настройках</string>
+
+    <string name="noti_channel">Оверлей баланса</string>
+    <string name="noti_title">WhaleHud работает</string>
+    <string name="noti_text">Кит на вашем экране (нажмите, чтобы открыть настройки)</string>
+    <string name="cal_state_holiday">Системный календарь: сегодня праздник (тариф вне пика)</string>
+    <string name="cal_state_workday">Системный календарь: перенос рабочего дня (тариф пика)</string>
+    <string name="cal_state_unknown">В системном календаре нет данных о праздниках или переносах</string>
+    <string name="menu_more">Ещё</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_about">О программе</string>
+    <string name="menu_language">Язык</string>
+    <string name="lang_title">Язык</string>
+    <string name="lang_system">Как в системе</string>
+    <string name="action_back">Назад</string>
+    <string name="action_stop_sub">Убрать кита с экрана</string>
+    <string name="section_status">Текущее состояние</string>
+    <string name="section_control">Управление</string>
+</resources>

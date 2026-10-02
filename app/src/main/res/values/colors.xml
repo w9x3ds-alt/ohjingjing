@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 浅色（白底 + 灰卡片 + 蓝强调） -->
+    <color name="bg">#F4F5F7</color>
+    <color name="card">#FFFFFF</color>
+    <color name="card2">#EFF1F4</color>
+
+    <color name="text_primary">#101216</color>
+    <color name="text_secondary">#6B7078</color>
+    <color name="text_hint">#9CA1AB</color>
+    <color name="text_on_accent">#FFFFFF</color>
+
+    <color name="accent">#2F6FED</color>
+    <color name="accent_soft">#E7EEFD</color>
+    <color name="danger">#D93B3B</color>
+    <color name="ok">#2E9E6B</color>
+
+    <color name="input_bg">#EFF1F4</color>
+    <color name="divider">#E6E8EC</color>
+    <color name="stroke">#DCDFE5</color>
+
+    <color name="nav_bg">#FFFFFF</color>
+    <color name="nav_active">#101216</color>
+    <color name="nav_inactive">#9CA1AB</color>
+
+    <color name="ripple">#14000000</color>
+    <color name="ripple_accent">#33FFFFFF</color>
+</resources>

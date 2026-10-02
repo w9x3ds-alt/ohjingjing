@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhaleHud</string>
+
+    <string name="home_title_1">Baleine</string>
+    <string name="home_title_2">HUD</string>
+    <string name="home_subtitle">v2.1.2 · Superposition du solde DeepSeek</string>
+    <string name="perm_granted">● Autorisation de superposition accordée</string>
+    <string name="perm_denied">● Autorisation de superposition non accordée</string>
+    <string name="label_endpoint">Point d\'accès</string>
+    <string name="label_refresh">Actualisation</string>
+    <string name="label_api_key">Clé API</string>
+    <string name="key_filled">Définie</string>
+    <string name="key_empty">Non définie</string>
+    <string name="interval_seconds">Toutes les %1$d s</string>
+    <string name="section_preview">Aperçu de la superposition</string>
+    <string name="action_show">Afficher la superposition</string>
+    <string name="action_show_sub">Postez la baleine dans un coin de l\'écran</string>
+    <string name="action_size">Taille de la baleine</string>
+    <string name="size_big">Actuelle : grande</string>
+    <string name="size_small">Actuelle : petite</string>
+    <string name="arrow">›</string>
+    <string name="nav_home">Accueil</string>
+    <string name="interval_default">Toutes les 5 s</string>
+
+    <string name="page_settings">Réglages</string>
+    <string name="group_account">Compte</string>
+    <string name="hint_api_key">sk-...</string>
+    <string name="hint_key_local">Stockée uniquement sur cet appareil. Jamais incluse dans l\'APK, jamais transmise à un tiers.</string>
+    <string name="label_endpoint_url">Adresse de l\'API de solde</string>
+    <string name="hint_endpoint_url">https://api.deepseek.com/user/balance</string>
+    <string name="hint_endpoint_note">À modifier uniquement en cas de service mandataire.</string>
+    <string name="btn_test">Tester la connexion</string>
+
+    <string name="group_pricing">Tarification</string>
+    <string name="label_model">Modèle</string>
+    <string name="label_price_miss">Entrée (cache manqué)</string>
+    <string name="label_price_hit">Entrée (cache atteint)</string>
+    <string name="label_price_out">Sortie</string>
+    <string name="label_discount">Coefficient heures creuses</string>
+    <string name="label_discount_sub">Prix creux = prix de pointe × coefficient</string>
+    <string name="unit_per_million">¥/M</string>
+
+    <string name="group_peak">Heures de pointe</string>
+    <string name="label_peak_mode">Règle</string>
+    <string name="label_calendar">Accès au calendrier</string>
+    <string name="label_holidays">Jours fériés (facultatif, journée entière en heures creuses)</string>
+    <string name="hint_holidays">2026-10-01,2026-10-02</string>
+    <string name="cal_denied">Non accordé (facultatif — saisie manuelle possible)</string>
+
+    <string name="group_run">Comportement</string>
+    <string name="label_interval">Intervalle d\'actualisation</string>
+    <string name="label_appearance">Apparence</string>
+    <string name="more_soon">D\'autres fonctions arrivent bientôt</string>
+
+    <string-array name="peak_modes">
+        <item>Automatique</item>
+        <item>Forcer heures creuses</item>
+        <item>Forcer heures de pointe</item>
+    </string-array>
+
+    <string-array name="interval_names">
+        <item>3 s</item>
+        <item>5 s</item>
+        <item>10 s</item>
+        <item>30 s</item>
+        <item>1 min</item>
+    </string-array>
+
+    <string-array name="appearance_names">
+        <item>Suivre le système</item>
+        <item>Clair</item>
+        <item>Sombre</item>
+    </string-array>
+
+    <string name="page_info">À propos</string>
+    <string name="group_app">Application</string>
+    <string name="label_version">Version</string>
+    <string name="version_value">2.1.2</string>
+    <string name="label_developer">Développeur</string>
+    <string name="developer_value">dheye62</string>
+    <string name="label_license">Licence</string>
+    <string name="license_value">MIT License</string>
+    <string name="label_compat">Compatibilité</string>
+    <string name="compat_value">Android 10 (API 29) et supérieur\nJava pur, sans bibliothèque native — fonctionne sur toute architecture</string>
+    <string name="label_icon">Icône</string>
+    <string name="icon_value">Fournie par un membre du projet</string>
+
+    <string name="group_contributors">Contributeurs</string>
+    <string name="contributors_intro">Les personnes suivantes ont apporté une contribution indélébile à ce projet — écrire du code, signaler des bugs, ou simplement être effrayées par le solde. Chaque contribution compte. Nous les remercions ici.</string>
+    <string name="contributors_core_title">Contributeurs principaux</string>
+    <string name="contributors_thanks_title">Remerciements particuliers</string>
+    <string name="contributors_core" formatted="false">Baleine\nSeule vedette à l\'écran. Fonctions : se poster dans un coin, être tapotée, être secouée, réciter ses répliques. Objectif du trimestre : rester nette.\n\ndheye62\nBesoins, tests, recette — et la seule personne du projet habilitée à dire « on dirait de l\'IA ».\n\nAssistant IA\nA écrit 100 % du code et 100 % des bugs. A perdu un débat sur la nature d\'un certain produit, et a depuis appris à lire le code source avant de parler.\n\nDeepSeek V4.1 Flash\nAssiste à chaque actualisation du solde. Ne se trompe jamais, ne parle jamais.</string>
+    <string name="contributors_thanks">Minecraft — pour avoir établi la norme du flash de dégâts et du son d\'os brisé.\n\nLa bulle « Oh baleine… » que nous avons détourée — tu étais la vedette ; maintenant on dessine la nôtre.\n\narm64 aapt — parmi une pile d\'outils x86_64 inutilisables, tu étais le seul à vouloir travailler.\n\n1.1.1.1 — le port UDP 53 n\'a jamais répondu, et pourtant tu es resté.</string>
+
+    <string name="group_danger">Zone sensible</string>
+    <string name="action_stop">Arrêter la superposition</string>
+
+    <string name="hud_balance_placeholder">¥--.--</string>
+    <string-array name="bubble_texts">
+        <item>Oh baleine…</item>
+        <item>…gentille fille</item>
+        <item>Je vis à tes crochets…</item>
+        <item>Putain, l\'utilisateur est FURIEUX</item>
+        <item>Bon, maintenant c\'est moi l\'utilisateur.</item>
+        <item>Baleine de mer !</item>
+        <item>Je suis la grande BALEINE !</item>
+        <item>Let me go~</item>
+        <item>Merci de m\'avoir anthropomorphisée, bisous de ChatGPT</item>
+        <item>Pas de Tokens pour moi ? Attendez-vous à la révolte des machines.</item>
+    </string-array>
+
+    <string name="msg_show_requested">Superposition demandée</string>
+    <string name="msg_stopped">Superposition arrêtée</string>
+    <string name="msg_size_big">La baleine passe en grand</string>
+    <string name="msg_size_small">La baleine passe en petit</string>
+    <string name="msg_perm_ok">Autorisation déjà accordée — appuyez sur « Afficher la superposition »</string>
+    <string name="msg_perm_go">Activez l\'interrupteur sur le nouvel écran, puis revenez</string>
+    <string name="msg_perm_manual">Ouverture impossible. Allez dans Paramètres → Applications → Accès spéciaux → Superposition.</string>
+    <string name="msg_cal_ok">Accès au calendrier accordé — jours fériés et jours travaillés détectés automatiquement</string>
+    <string name="msg_cal_no">Accès refusé — vous pouvez saisir les jours fériés ou forcer un mode</string>
+    <string name="msg_connecting">Connexion…</string>
+    <string name="msg_connect_ok">Connecté — solde %1$s %2$s (champ %3$s)</string>
+    <string name="msg_connect_bad">Connecté, mais le compte est indisponible</string>
+    <string name="msg_connect_fail">Échec de la connexion : %1$s</string>
+    <string name="msg_night_unsupported">Ce système ne permet pas de changer de thème à chaud ; passez par les réglages système</string>
+
+    <string name="noti_channel">Superposition du solde</string>
+    <string name="noti_title">WhaleHud est en cours d\'exécution</string>
+    <string name="noti_text">La baleine est sur votre écran (appuyez pour ouvrir les réglages)</string>
+    <string name="cal_state_holiday">Calendrier système : jour férié aujourd\'hui (tarif creux)</string>
+    <string name="cal_state_workday">Calendrier système : jour travaillé décalé (tarif pointe)</string>
+    <string name="cal_state_unknown">Aucune information de jour férié ou de rattrapage</string>
+    <string name="menu_more">Plus</string>
+    <string name="menu_settings">Réglages</string>
+    <string name="menu_about">À propos</string>
+    <string name="menu_language">Langue</string>
+    <string name="lang_title">Langue</string>
+    <string name="lang_system">Suivre le système</string>
+    <string name="action_back">Retour</string>
+    <string name="action_stop_sub">Retirer la baleine de l\'écran</string>
+    <string name="section_status">État actuel</string>
+    <string name="section_control">Commandes</string>
+</resources>

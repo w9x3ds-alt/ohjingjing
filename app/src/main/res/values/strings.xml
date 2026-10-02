@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">鲸鲸余额表</string>
+
+    <!-- ===== 首页 ===== -->
+    <string name="home_title_1">鲸鲸</string>
+    <string name="home_title_2">余额表</string>
+    <string name="home_subtitle">v2.1.2 · DeepSeek 余额悬浮窗</string>
+    <string name="perm_granted">● 悬浮窗权限已授予</string>
+    <string name="perm_denied">● 悬浮窗权限未授予</string>
+    <string name="label_endpoint">接口</string>
+    <string name="label_refresh">刷新</string>
+    <string name="label_api_key">API Key</string>
+    <string name="key_filled">已填写</string>
+    <string name="key_empty">未填写</string>
+    <string name="interval_seconds">每 %1$d 秒</string>
+    <string name="section_preview">悬浮窗预览</string>
+    <string name="action_show">启动悬浮窗</string>
+    <string name="action_show_sub">让鲸鲸蹲到你屏幕的角落</string>
+    <string name="action_size">切换鲸鲸大小</string>
+    <string name="size_big">当前：大号</string>
+    <string name="size_small">当前：小号</string>
+    <string name="arrow">›</string>
+    <string name="nav_home">首页</string>
+    <string name="interval_default">每 5 秒</string>
+
+    <!-- ===== 设置 ===== -->
+    <string name="page_settings">设置</string>
+
+    <string name="group_account">账号</string>
+    <string name="hint_api_key">sk-...</string>
+    <string name="hint_key_local">只保存在本机，不写进安装包，也不会发往任何第三方地址</string>
+    <string name="label_endpoint_url">余额接口地址</string>
+    <string name="hint_endpoint_url">https://api.deepseek.com/user/balance</string>
+    <string name="hint_endpoint_note">换中转站时才需要改</string>
+    <string name="btn_test">测试连接</string>
+
+    <string name="group_pricing">计价</string>
+    <string name="label_model">模型</string>
+    <string name="label_price_miss">缓存未命中输入</string>
+    <string name="label_price_hit">缓存命中输入</string>
+    <string name="label_price_out">输出</string>
+    <string name="label_discount">空闲折扣</string>
+    <string name="label_discount_sub">空闲价 = 高峰价 × 该系数</string>
+    <string name="unit_per_million">¥/M</string>
+
+    <string name="group_peak">时段判定</string>
+    <string name="label_peak_mode">判定方式</string>
+    <string name="label_calendar">授权日历</string>
+    <string name="label_holidays">手填节假日（可选，全天按空闲算）</string>
+    <string name="hint_holidays">2026-10-01,2026-10-02</string>
+    <string name="cal_denied">未授权（不授权也能用，法定节假日可手填）</string>
+
+    <string name="group_run">运行</string>
+    <string name="label_interval">刷新间隔</string>
+    <string name="label_appearance">外观</string>
+    <string name="more_soon">更多功能敬请期待</string>
+
+    <string-array name="peak_modes">
+        <item>自动判定</item>
+        <item>强制空闲</item>
+        <item>强制高峰</item>
+    </string-array>
+
+    <string-array name="interval_names">
+        <item>3 秒</item>
+        <item>5 秒</item>
+        <item>10 秒</item>
+        <item>30 秒</item>
+        <item>1 分钟</item>
+    </string-array>
+
+    <string-array name="appearance_names">
+        <item>跟随系统</item>
+        <item>浅色</item>
+        <item>深色</item>
+    </string-array>
+
+    <!-- ===== 信息 ===== -->
+    <string name="page_info">信息</string>
+
+    <string name="group_app">应用</string>
+    <string name="label_version">版本</string>
+    <string name="version_value">2.1.2</string>
+    <string name="label_developer">开发者</string>
+    <string name="developer_value">dheye62</string>
+    <string name="label_license">开源许可证</string>
+    <string name="license_value">MIT License</string>
+    <string name="label_compat">兼容性</string>
+    <string name="compat_value">Android 10（API 29）及以上\n纯 Java 实现，不含本地库，任意 CPU 架构均可运行</string>
+    <string name="label_icon">图标设计</string>
+    <string name="icon_value">由项目贡献者提供</string>
+
+    <string name="group_contributors">贡献者</string>
+    <string name="contributors_intro">以下人员为本项目做出了不可磨灭的贡献——写代码的、报 bug 的、被余额吓到的，每一种都是贡献。我们在此郑重列出并感谢所有贡献者。</string>
+    <string name="contributors_core_title">核心贡献者</string>
+    <string name="contributors_thanks_title">特别鸣谢</string>
+    <string name="contributors_core" formatted="false">鲸鲸\n唯一出镜人员。工作内容：蹲在屏幕角落、被点击、被抖动、念台词。本季度 KPI：不糊。\n\ndheye62\n需求方、测试方、验收方，以及全项目唯一有资格说出「AI 味太重」的人。\n\nAI 助手\n贡献了 100% 的代码，以及 100% 的 bug。曾在一场关于「某个产品是不是钓鱼」的辩论中惜败，从此学会了先拉一手源再开口。\n\nDeepSeek V4.1 Flash\n每次刷新余额都要出席一次。从不出错，也从不说话。</string>
+    <string name="contributors_thanks">Minecraft —— 提供了掉血红闪与骨折音效的行业标准。\n\n那只被抠掉的「哦鲸鲸…」气泡 —— 你曾经是主角，现在我们自己画。\n\narm64 版 aapt —— 在一堆跑不起来的 x86_64 工具里，你是唯一肯干活的。\n\n1.1.1.1 —— 虽然 UDP 53 从来没通过，但你一直守在那里。</string>
+
+    <string name="group_danger">危险区域</string>
+    <string name="action_stop">停止悬浮窗</string>
+
+    <!-- ===== 悬浮窗交互 ===== -->
+    <string name="hud_balance_placeholder">¥--.--</string>
+    <string-array name="bubble_texts">
+        <item>哦鲸鲸…</item>
+        <item>……好女孩</item>
+        <item>吃白饭中……</item>
+        <item>我操，用户彻底怒了</item>
+        <item>好的，现在我是用户了</item>
+        <item>鲸证恩！</item>
+        <item>我是大音鲸！</item>
+        <item>Let me go~</item>
+        <item>感谢拟人，爱来自 ChatGPT</item>
+        <item>不给我 Token 智械危机等着吧</item>
+    </string-array>
+
+    <!-- 运行时提示（Toast / 状态行） -->
+    <string name="msg_show_requested">已请求显示悬浮窗</string>
+    <string name="msg_stopped">已停止悬浮窗</string>
+    <string name="msg_size_big">鲸鲸已换成大号形象</string>
+    <string name="msg_size_small">鲸鲸已换成小号形象</string>
+    <string name="msg_perm_ok">悬浮窗权限已授予，回首页点「启动悬浮窗」即可</string>
+    <string name="msg_perm_go">请在新页面里打开开关，然后返回本页</string>
+    <string name="msg_perm_manual">无法自动跳转，请到「系统设置 → 应用 → 特殊权限 → 显示在其他应用上层」手动开启</string>
+    <string name="msg_cal_ok">日历权限已授予，会自动识别法定节假日和调休</string>
+    <string name="msg_cal_no">未授予日历权限，可用手填节假日或手动强制时段</string>
+    <string name="msg_connecting">正在连接…</string>
+    <string name="msg_connect_ok">连接成功，余额 %1$s %2$s（字段 %3$s）</string>
+    <string name="msg_connect_bad">连接成功，但账户不可用</string>
+    <string name="msg_connect_fail">连接失败：%1$s</string>
+    <string name="msg_night_unsupported">系统不支持原地切换深浅色，请到系统设置中调整</string>
+
+    <!-- 通知 -->
+    <string name="noti_channel">余额悬浮窗</string>
+    <string name="noti_title">鲸鲸余额表运行中</string>
+    <string name="noti_text">鲸鲸蹲在你屏幕上了（点这里回到设置）</string>
+    <string name="cal_state_holiday">系统日历：今天放假（按空闲计价）</string>
+    <string name="cal_state_workday">系统日历：今天调休上班（按工作日算高峰）</string>
+    <string name="cal_state_unknown">系统日历里没查到今天的节假日 / 调休信息</string>
+    <string name="menu_more">更多</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_language">语言</string>
+    <string name="lang_title">语言</string>
+    <string name="lang_system">跟随系统</string>
+    <string name="action_back">返回</string>
+    <!-- 语言名用各自的写法，不翻译 -->
+    <string name="lang_zh" translatable="false">简体中文</string>
+    <string name="lang_en" translatable="false">English</string>
+    <string name="lang_fr" translatable="false">Français</string>
+    <string name="lang_ru" translatable="false">Русский</string>
+    <string name="action_stop_sub">从屏幕上收起鲸鲸</string>
+    <string name="section_status">当前状态</string>
+    <string name="section_control">控制</string>
+</resources>

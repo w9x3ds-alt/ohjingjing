@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhaleHud</string>
+
+    <string name="home_title_1">Whale</string>
+    <string name="home_title_2">HUD</string>
+    <string name="home_subtitle">v2.1.2 · DeepSeek balance overlay</string>
+    <string name="perm_granted">● Overlay permission granted</string>
+    <string name="perm_denied">● Overlay permission not granted</string>
+    <string name="label_endpoint">Endpoint</string>
+    <string name="label_refresh">Refresh</string>
+    <string name="label_api_key">API Key</string>
+    <string name="key_filled">Set</string>
+    <string name="key_empty">Not set</string>
+    <string name="interval_seconds">Every %1$d s</string>
+    <string name="section_preview">Overlay preview</string>
+    <string name="action_show">Show overlay</string>
+    <string name="action_show_sub">Park the whale in a corner of your screen</string>
+    <string name="action_size">Whale size</string>
+    <string name="size_big">Current: large</string>
+    <string name="size_small">Current: small</string>
+    <string name="arrow">›</string>
+    <string name="nav_home">Home</string>
+    <string name="interval_default">Every 5 s</string>
+
+    <string name="page_settings">Settings</string>
+    <string name="group_account">Account</string>
+    <string name="hint_api_key">sk-...</string>
+    <string name="hint_key_local">Stored on this device only. Never bundled into the APK, never sent to any third party.</string>
+    <string name="label_endpoint_url">Balance endpoint</string>
+    <string name="hint_endpoint_url">https://api.deepseek.com/user/balance</string>
+    <string name="hint_endpoint_note">Only change this if you use a proxy service.</string>
+    <string name="btn_test">Test connection</string>
+
+    <string name="group_pricing">Pricing</string>
+    <string name="label_model">Model</string>
+    <string name="label_price_miss">Input (cache miss)</string>
+    <string name="label_price_hit">Input (cache hit)</string>
+    <string name="label_price_out">Output</string>
+    <string name="label_discount">Off-peak multiplier</string>
+    <string name="label_discount_sub">Off-peak price = peak price × multiplier</string>
+    <string name="unit_per_million">¥/M</string>
+
+    <string name="group_peak">Peak hours</string>
+    <string name="label_peak_mode">Rule</string>
+    <string name="label_calendar">Calendar access</string>
+    <string name="label_holidays">Holidays (optional, whole day counts as off-peak)</string>
+    <string name="hint_holidays">2026-10-01,2026-10-02</string>
+    <string name="cal_denied">Not granted (optional — you can list holidays manually)</string>
+
+    <string name="group_run">Behaviour</string>
+    <string name="label_interval">Refresh interval</string>
+    <string name="label_appearance">Appearance</string>
+    <string name="more_soon">More features coming soon</string>
+
+    <string-array name="peak_modes">
+        <item>Automatic</item>
+        <item>Force off-peak</item>
+        <item>Force peak</item>
+    </string-array>
+
+    <string-array name="interval_names">
+        <item>3 s</item>
+        <item>5 s</item>
+        <item>10 s</item>
+        <item>30 s</item>
+        <item>1 min</item>
+    </string-array>
+
+    <string-array name="appearance_names">
+        <item>Follow system</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string name="page_info">About</string>
+    <string name="group_app">Application</string>
+    <string name="label_version">Version</string>
+    <string name="version_value">2.1.2</string>
+    <string name="label_developer">Developer</string>
+    <string name="developer_value">dheye62</string>
+    <string name="label_license">License</string>
+    <string name="license_value">MIT License</string>
+    <string name="label_compat">Compatibility</string>
+    <string name="compat_value">Android 10 (API 29) and above\nPure Java, no native libraries — runs on any CPU architecture</string>
+    <string name="label_icon">Icon design</string>
+    <string name="icon_value">Contributed by a project member</string>
+
+    <string name="group_contributors">Contributors</string>
+    <string name="contributors_intro">The following people made indelible contributions to this project — writing code, filing bugs, or simply being startled by the balance. Every kind counts. We list and thank them all here.</string>
+    <string name="contributors_core_title">Core contributors</string>
+    <string name="contributors_thanks_title">Special thanks</string>
+    <string name="contributors_core" formatted="false">Whale\nSole on-screen talent. Duties: squatting in a screen corner, being tapped, being shaken, delivering lines. This quarter\u2019s KPI: stay sharp.\n\ndheye62\nRequirements, testing, acceptance — and the only person on the project qualified to say \u201cthis looks AI-generated\u201d.\n\nAI assistant\nWrote 100% of the code and 100% of the bugs. Lost a debate about whether a certain product was a phishing site, and has since learned to read the source before speaking.\n\nDeepSeek V4.1 Flash\nAttends every single balance refresh. Never errs, never speaks.</string>
+    <string name="contributors_thanks">Minecraft — for setting the industry standard for damage flashes and bone-crack sound effects.\n\nThe \u201cOh whale\u2026\u201d speech bubble we cut out — you used to be the star; now we draw our own.\n\narm64 aapt — among a pile of x86_64 tools that refuse to run, you were the only one willing to work.\n\n1.1.1.1 — UDP 53 never once got through, yet you stayed.</string>
+
+    <string name="group_danger">Danger zone</string>
+    <string name="action_stop">Stop overlay</string>
+
+    <string name="hud_balance_placeholder">¥--.--</string>
+    <string-array name="bubble_texts">
+        <item>Oh whale…</item>
+        <item>…good girl</item>
+        <item>Freeloading off you…</item>
+        <item>Holy crap, the user is FURIOUS</item>
+        <item>Fine, now I\'m the user.</item>
+        <item>Whale-damn!</item>
+        <item>I am the great WHALE!</item>
+        <item>Let me go~</item>
+        <item>Thanks for anthropomorphizing me, love from ChatGPT</item>
+        <item>No Tokens for me? Enjoy the robot uprising.</item>
+    </string-array>
+
+    <string name="msg_show_requested">Overlay requested</string>
+    <string name="msg_stopped">Overlay stopped</string>
+    <string name="msg_size_big">Whale switched to large</string>
+    <string name="msg_size_small">Whale switched to small</string>
+    <string name="msg_perm_ok">Overlay permission already granted — tap \u201cShow overlay\u201d on Home</string>
+    <string name="msg_perm_go">Turn the switch on in the new screen, then come back</string>
+    <string name="msg_perm_manual">Could not open the settings page. Go to Settings → Apps → Special access → Display over other apps.</string>
+    <string name="msg_cal_ok">Calendar permission granted — holidays and make-up workdays are detected automatically</string>
+    <string name="msg_cal_no">Calendar permission denied — you can list holidays manually or force a mode</string>
+    <string name="msg_connecting">Connecting…</string>
+    <string name="msg_connect_ok">Connected — balance %1$s %2$s (field %3$s)</string>
+    <string name="msg_connect_bad">Connected, but the account is unavailable</string>
+    <string name="msg_connect_fail">Connection failed: %1$s</string>
+    <string name="msg_night_unsupported">This system cannot switch light/dark mode in place; change it in system settings</string>
+
+    <string name="noti_channel">Balance overlay</string>
+    <string name="noti_title">WhaleHud is running</string>
+    <string name="noti_text">The whale is on your screen (tap to open settings)</string>
+    <string name="cal_state_holiday">System calendar: public holiday today (off-peak rates)</string>
+    <string name="cal_state_workday">System calendar: make-up workday today (peak rules)</string>
+    <string name="cal_state_unknown">No holiday or make-up workday found in the system calendar</string>
+    <string name="menu_more">More</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about">About</string>
+    <string name="menu_language">Language</string>
+    <string name="lang_title">Language</string>
+    <string name="lang_system">Follow system</string>
+    <string name="action_back">Back</string>
+    <string name="action_stop_sub">Send the whale off your screen</string>
+    <string name="section_status">Status</string>
+    <string name="section_control">Controls</string>
+</resources>

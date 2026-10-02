@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 深色：对齐 MobileGlues 2.0 那套（纯黑底 + 深灰卡片 + #3B82F6 蓝） -->
+    <color name="bg">#000000</color>
+    <color name="card">#17181B</color>
+    <color name="card2">#22242A</color>
+
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#9AA0AA</color>
+    <color name="text_hint">#6B7078</color>
+    <color name="text_on_accent">#FFFFFF</color>
+
+    <color name="accent">#3B82F6</color>
+    <color name="accent_soft">#14243C</color>
+    <color name="danger">#F05252</color>
+    <color name="ok">#4ADE80</color>
+
+    <color name="input_bg">#202226</color>
+    <color name="divider">#26282D</color>
+    <color name="stroke">#33363C</color>
+
+    <color name="nav_bg">#0A0A0C</color>
+    <color name="nav_active">#FFFFFF</color>
+    <color name="nav_inactive">#747984</color>
+
+    <color name="ripple">#26FFFFFF</color>
+    <color name="ripple_accent">#40FFFFFF</color>
+</resources>

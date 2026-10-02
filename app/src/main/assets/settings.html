@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Settings</title>
+<style>
+/*
+  设置页 · Web 版
+  动效令牌与原生 Motion.java 一一对应，两边说同一种「动画语言」：
+    时长  instant 75 / fast 120 / base 200 / slow 320
+    曲线  enter(快起慢收) / exit(慢起快收) / standard(位移) / gentle(轻柔)
+  只动画 opacity 与 transform，不动画 layout 属性。
+
+  2.1.1：三个下拉从原生 <select> 换成自绘选择器 —— 系统控件在 WebView 里
+  容易被 CSS 与桥初始化状态影响，点了没反应；自绘的完全可控。
+*/
+:root {
+  --bg: #000000;
+  --card: #17181B;
+  --card2: #22242A;
+  --text: #FFFFFF;
+  --text2: #9AA0AA;
+  --text3: #6B7078;
+  --accent: #3B82F6;
+  --accent-soft: #14243C;
+  --danger: #F05252;
+  --stroke: #33363C;
+  --input-bg: #202226;
+
+  --dur-instant: 75ms;
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-gentle: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+html.light {
+  --bg: #F4F5F7;
+  --card: #FFFFFF;
+  --card2: #EFF1F4;
+  --text: #101216;
+  --text2: #6B7078;
+  --text3: #9CA1AB;
+  --accent: #2F6FED;
+  --accent-soft: #E7EEFD;
+  --danger: #D93B3B;
+  --stroke: #DCDFE5;
+  --input-bg: #EFF1F4;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body {
+  color: var(--text);
+  font-family: -apple-system, "Noto Sans CJK SC", "Source Han Sans", "PingFang SC",
+               "Microsoft YaHei", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  padding: 34px 20px 40px;
+  transition: background var(--dur-base) var(--ease-standard),
+              color var(--dur-base) var(--ease-standard);
+}
+
+h1 {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+  animation: rise var(--dur-slow) var(--ease-enter) both;
+}
+
+.group-title {
+  color: var(--text2);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 24px 0 9px 4px;
+  animation: rise var(--dur-slow) var(--ease-enter) both;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 4px 0;
+  transition: background var(--dur-base) var(--ease-standard);
+  animation: rise var(--dur-slow) var(--ease-enter) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  position: relative;
+}
+.row.col { flex-direction: column; align-items: stretch; gap: 8px; }
+
+/* 行间分隔线：左右各留 16px，让每一项的边界一目了然 */
+.row + .row::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 0;
+  height: 1px;
+  background: var(--stroke);
+  opacity: 0.7;
+}
+
+.title { flex: 1; font-size: 15px; }
+.sub { font-size: 12.5px; color: var(--text2); margin-top: 3px; }
+.hint { font-size: 11.5px; color: var(--text3); line-height: 1.5; }
+.unit { font-size: 14px; color: var(--text2); flex: none; }
+.field-label { font-size: 13px; color: var(--text2); }
+
+/* 当前值用强调色：扫一眼就知道每项现在是什么 */
+.value {
+  font-size: 14px;
+  color: var(--accent);
+  flex: none;
+  max-width: 52%;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chev { color: var(--text2); font-size: 20px; flex: none; line-height: 1; }
+
+input[type="text"], input[type="number"] {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              background var(--dur-fast) var(--ease-standard);
+}
+input:focus { outline: none; border-color: var(--accent); }
+input::placeholder { color: var(--text3); }
+input.mini {
+  width: 92px; flex: none; text-align: center; height: 42px;
+  padding: 0 8px; font-variant-numeric: tabular-nums;
+}
+input.medium { width: 140px; flex: none; text-align: center; height: 42px; padding: 0 8px; }
+
+.row.tappable {
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background var(--dur-fast) var(--ease-standard);
+}
+.row.tappable:active { background: var(--card2); }
+
+button {
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--accent);
+  border: none;
+  border-radius: 26px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform var(--dur-instant) var(--ease-standard),
+              background var(--dur-fast) var(--ease-standard);
+}
+button:active { transform: scale(0.972); }
+button.ghost {
+  background: transparent;
+  border: 1px solid var(--stroke);
+  color: var(--text);
+  font-weight: 400;
+  height: 46px;
+}
+
+#msg {
+  font-size: 11.5px;
+  color: var(--text3);
+  padding: 13px 16px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+#msg.on { color: var(--accent); }
+
+.footer-note {
+  text-align: center;
+  color: var(--text2);
+  font-size: 12.5px;
+  margin-top: 26px;
+  animation: rise var(--dur-slow) var(--ease-enter) both;
+}
+
+/* ---------- 自绘选择器 ---------- */
+#pick_scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+#pick_scrim.on { opacity: 1; pointer-events: auto; }
+
+#pick_sheet {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 11;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  pointer-events: none;
+  transition: transform var(--dur-slow) var(--ease-enter),
+              opacity var(--dur-base) var(--ease-standard),
+              background var(--dur-base) var(--ease-standard);
+}
+#pick_sheet.on {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+#pick_title {
+  font-size: 13px;
+  color: var(--text2);
+  padding: 10px 16px 6px;
+}
+
+.opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
+}
+.opt:active { background: var(--card2); }
+.opt.sel { color: var(--accent); font-weight: 600; }
+.opt .tick { opacity: 0; transition: opacity var(--dur-fast) var(--ease-standard); }
+.opt.sel .tick { opacity: 1; }
+</style>
+</head>
+<body>
+
+<h1 id="s_page_settings"></h1>
+
+<div class="group-title" id="s_group_account"></div>
+<div class="card">
+  <div class="row col">
+    <div class="field-label" id="s_label_api_key"></div>
+    <input type="text" id="key" autocomplete="off" spellcheck="false" placeholder="sk-...">
+    <div class="hint" id="s_hint_key_local"></div>
+  </div>
+  <div class="row col">
+    <div class="field-label" id="s_label_endpoint_url"></div>
+    <input type="text" id="url" autocomplete="off" spellcheck="false">
+    <div class="hint" id="s_hint_endpoint_note"></div>
+  </div>
+  <div class="row">
+    <button class="ghost" id="btn_test"></button>
+  </div>
+</div>
+
+<div class="group-title" id="s_group_pricing"></div>
+<div class="card">
+  <div class="row">
+    <span class="title" id="s_label_model"></span>
+    <input class="medium" type="text" id="model" autocomplete="off" spellcheck="false">
+  </div>
+  <div class="row">
+    <span class="title" id="s_label_price_miss"></span>
+    <input class="mini" type="number" id="miss" step="0.01" inputmode="decimal">
+    <span class="unit u-pm"></span>
+  </div>
+  <div class="row">
+    <span class="title" id="s_label_price_hit"></span>
+    <input class="mini" type="number" id="hit" step="0.01" inputmode="decimal">
+    <span class="unit u-pm"></span>
+  </div>
+  <div class="row">
+    <span class="title" id="s_label_price_out"></span>
+    <input class="mini" type="number" id="out" step="0.01" inputmode="decimal">
+    <span class="unit u-pm"></span>
+  </div>
+  <div class="row">
+    <div style="flex:1">
+      <div class="title" id="s_label_discount"></div>
+      <div class="sub" id="s_label_discount_sub"></div>
+    </div>
+    <input class="mini" type="number" id="discount" step="0.05" inputmode="decimal">
+  </div>
+</div>
+
+<div class="group-title" id="s_group_peak"></div>
+<div class="card">
+  <div class="row tappable" id="row_peak_mode">
+    <span class="title" id="s_label_peak_mode"></span>
+    <span class="value" id="v_peak_mode"></span>
+    <span class="chev">›</span>
+  </div>
+  <div class="row tappable" id="btn_cal">
+    <div style="flex:1">
+      <div class="title" id="s_label_calendar"></div>
+      <div class="sub" id="cal_state"></div>
+    </div>
+    <span class="chev">›</span>
+  </div>
+  <div class="row col">
+    <div class="field-label" id="s_label_holidays"></div>
+    <input type="text" id="holidays" autocomplete="off" spellcheck="false">
+  </div>
+</div>
+
+<div class="group-title" id="s_group_run"></div>
+<div class="card">
+  <div class="row tappable" id="row_interval">
+    <span class="title" id="s_label_interval"></span>
+    <span class="value" id="v_interval"></span>
+    <span class="chev">›</span>
+  </div>
+  <div class="row tappable" id="row_appearance">
+    <span class="title" id="s_label_appearance"></span>
+    <span class="value" id="v_appearance"></span>
+    <span class="chev">›</span>
+  </div>
+  <div class="row col">
+    <div id="msg"></div>
+  </div>
+</div>
+
+<div class="footer-note" id="s_more_soon"></div>
+
+<div id="pick_scrim"></div>
+<div id="pick_sheet">
+  <div id="pick_title"></div>
+  <div id="pick_list"></div>
+</div>
+
+<script>
+(function () {
+  var A = window.Android;
+
+  function $(id) { return document.getElementById(id); }
+
+  function call(fn) {
+    if (!A || typeof A[fn] !== "function") return null;
+    var args = Array.prototype.slice.call(arguments, 1);
+    try { return A[fn].apply(A, args); } catch (e) { return null; }
+  }
+
+  var S = {};   // 文案
+  var items = { peak_mode: [], interval: [], appearance: [] };
+  var picked = { peak_mode: 0, interval: 1, appearance: 0 };
+
+  /**
+   * 期望收到数组，但历史上 Java 侧曾把数组拼成字符串发过来，
+   * 结果 list[i] 取到单个字符，界面上表现为选项被逐字竖排。
+   * 这里做一次兼容：是字符串就解析，解析不了就当空数组，绝不把字符串当数组用。
+   */
+  function toList(v) {
+    if (Array.isArray(v)) return v;
+    if (typeof v === "string") {
+      try {
+        var parsed = JSON.parse(v);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) { return []; }
+    }
+    return [];
+  }
+
+  function applyStrings(str) {
+    S = str || {};
+    for (var k in S) {
+      if (!Object.prototype.hasOwnProperty.call(S, k)) continue;
+      var el = $("s_" + k);
+      if (el) el.textContent = S[k];
+    }
+    var u = document.querySelectorAll(".u-pm");
+    for (var i = 0; i < u.length; i++) u[i].textContent = S.unit_per_million || "";
+    $("btn_test").textContent = S.btn_test || "";
+    document.documentElement.lang = S.lang || "zh";
+  }
+
+  function setValueLabel(id, text) {
+    var el = $("v_" + id);
+    if (el) el.textContent = text || "";
+  }
+
+  function render(prefs) {
+    var p = prefs || {};
+    $("key").value = p.key || "";
+    $("url").value = p.url || "";
+    $("model").value = p.model || "";
+    $("miss").value = p.miss || "";
+    $("hit").value = p.hit || "";
+    $("out").value = p.out || "";
+    $("discount").value = p.discount || "";
+    $("holidays").value = p.holidays || "";
+    $("cal_state").textContent = p.calText || "";
+    $("msg").textContent = p.msg || "";
+
+    items.peak_mode = toList(p.peakModes);
+    items.interval = toList(p.intervalNames);
+    items.appearance = toList(p.appearanceNames);
+
+    picked.peak_mode = p.peakMode || 0;
+    picked.interval = (typeof p.interval === "number") ? p.interval : 1;
+    picked.appearance = p.appearance || 0;
+
+    setValueLabel("peak_mode", items.peak_mode[picked.peak_mode]);
+    setValueLabel("interval", items.interval[picked.interval]);
+    setValueLabel("appearance", items.appearance[picked.appearance]);
+  }
+
+  function collect() {
+    return {
+      key: $("key").value,
+      url: $("url").value,
+      model: $("model").value,
+      miss: $("miss").value,
+      hit: $("hit").value,
+      out: $("out").value,
+      discount: $("discount").value,
+      holidays: $("holidays").value,
+      peakMode: picked.peak_mode,
+      interval: picked.interval,
+      appearance: picked.appearance
+    };
+  }
+
+  // ---------- 自绘选择器 ----------
+
+  var pickCb = null;
+
+  function openPicker(title, list, current, cb) {
+    $("pick_title").textContent = title || "";
+    $("pick_title").style.display = title ? "" : "none";
+    var box = $("pick_list");
+    box.innerHTML = "";
+    for (var i = 0; i < list.length; i++) {
+      (function (idx) {
+        var d = document.createElement("div");
+        d.className = "opt" + (idx === current ? " sel" : "");
+        var t = document.createElement("span");
+        t.textContent = list[idx];
+        var c = document.createElement("span");
+        c.className = "tick";
+        c.textContent = "✓";
+        d.appendChild(t);
+        d.appendChild(c);
+        d.addEventListener("click", function () {
+          closePicker();
+          if (cb) cb(idx);
+        });
+        box.appendChild(d);
+      })(i);
+    }
+    pickCb = cb;
+    $("pick_scrim").classList.add("on");
+    $("pick_sheet").classList.add("on");
+  }
+
+  function closePicker() {
+    pickCb = null;
+    $("pick_scrim").classList.remove("on");
+    $("pick_sheet").classList.remove("on");
+  }
+
+  $("pick_scrim").addEventListener("click", closePicker);
+
+  function titled(key) {
+    var el = $("s_" + key);
+    return el ? el.textContent : "";
+  }
+
+  function bindPicker(rowId, key) {
+    $(rowId).addEventListener("click", function () {
+      var list = items[key] || [];
+      if (!list.length) return;
+      openPicker(titled("label_" + key), list, picked[key], function (idx) {
+        picked[key] = idx;
+        setValueLabel(key, list[idx]);
+        call("save", JSON.stringify(collect()));
+        call("onPrefChanged", key, idx);
+      });
+    });
+  }
+
+  /** 标签 id 与 key 的对应（有些键名和标签名不一致） */
+  function titleFor(key) {
+    if (key === "peak_mode") return titled("label_peak_mode");
+    if (key === "interval") return titled("label_interval");
+    if (key === "appearance") return titled("label_appearance");
+    return "";
+  }
+
+  function bindPicker2(rowId, key) {
+    $(rowId).addEventListener("click", function () {
+      var list = items[key] || [];
+      if (!list.length) return;
+      openPicker(titleFor(key), list, picked[key], function (idx) {
+        picked[key] = idx;
+        setValueLabel(key, list[idx]);
+        call("save", JSON.stringify(collect()));
+        call("onPrefChanged", key, idx);
+      });
+    });
+  }
+
+  function bindAutoSave() {
+    ["key", "url", "model", "miss", "hit", "out", "discount", "holidays"].forEach(function (id) {
+      $(id).addEventListener("blur", function () { call("save", JSON.stringify(collect())); });
+    });
+  }
+
+  function bindActions() {
+    $("btn_test").addEventListener("click", function () {
+      call("save", JSON.stringify(collect()));
+      call("action", "test");
+    });
+    $("btn_cal").addEventListener("click", function () {
+      call("save", JSON.stringify(collect()));
+      call("action", "calendar");
+    });
+  }
+
+  window.__hudSettings = {
+    bind: function (bootstrapJson) {
+      try {
+        var d = JSON.parse(bootstrapJson);
+        document.documentElement.className = d.dark ? "" : "light";
+        applyStrings(d.strings);
+        render(d.prefs);
+      } catch (e) { }
+      var cards = document.querySelectorAll(".card, .group-title, h1, .footer-note");
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].style.animationDelay = (40 + i * 36) + "ms";
+      }
+    },
+    setTheme: function (dark) {
+      document.documentElement.className = dark ? "" : "light";
+    },
+    setCalState: function (text) {
+      var el = $("cal_state");
+      if (el) el.textContent = text;
+    },
+    setMsg: function (text) {
+      var m = $("msg");
+      m.textContent = text;
+      m.className = text ? "on" : "";
+    }
+  };
+
+  bindAutoSave();
+  bindActions();
+  bindPicker2("row_peak_mode", "peak_mode");
+  bindPicker2("row_interval", "interval");
+  bindPicker2("row_appearance", "appearance");
+})();
+</script>
+</body>
+</html>

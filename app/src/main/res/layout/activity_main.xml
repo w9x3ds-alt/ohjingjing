@@ -94,40 +94,32 @@
             <!-- 开 / 关 放一起，方便随手切换 -->
             <TextView style="@style/GroupTitle" android:text="@string/section_control" />
 
+            <!-- 悬浮窗开关：按一下开，再按一下关 -->
             <LinearLayout
                 android:id="@+id/btn_show"
                 style="@style/NRow"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/row_ripple">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView style="@style/NRowTitle" android:text="@string/action_show" />
-                    <TextView style="@style/NRowSub" android:text="@string/action_show_sub" />
-                </LinearLayout>
-                <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/btn_stop"
-                style="@style/NRow"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/row_ripple">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/overlay_switch" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/action_stop"
-                        android:textColor="@color/danger"
-                        android:textSize="15sp" />
-                    <TextView style="@style/NRowSub" android:text="@string/action_stop_sub" />
+                        android:id="@+id/overlay_switch_sub"
+                        style="@style/NRowSub"
+                        android:text="@string/overlay_off" />
                 </LinearLayout>
-                <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/overlay_switch_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="○"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_hint" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,6 +146,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
+
+    <!-- ==================== 娱乐（音乐） ==================== -->
+    <ScrollView
+        android:id="@+id/page_fun"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="34dp"
+            android:paddingBottom="30dp">
+
+            <TextView style="@style/PageTitle" android:text="@string/page_fun" />
+
+            <TextView style="@style/GroupTitle" android:text="@string/section_music" />
+
+            <LinearLayout style="@style/NCard">
+                <LinearLayout style="@style/NRow" android:orientation="vertical">
+                    <TextView android:id="@+id/music_now" style="@style/NRowTitle" android:text="@string/music_nothing" />
+                    <TextView android:id="@+id/music_state" style="@style/NRowSub" android:text="" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NRow">
+                    <TextView android:id="@+id/btn_prev" style="@style/MusicCtrl" android:text="⏮" />
+                    <TextView android:id="@+id/btn_play" style="@style/MusicCtrlPrimary" android:text="▶" />
+                    <TextView android:id="@+id/btn_next" style="@style/MusicCtrl" android:text="⏭" />
+                    <TextView android:id="@+id/btn_stop_music" style="@style/MusicCtrl" android:text="■" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/row_music_mode"
+                    style="@style/NRow"
+                    android:background="@drawable/row_ripple">
+                    <TextView style="@style/NRowTitle" android:layout_weight="1" android:text="@string/music_mode" />
+                    <TextView android:id="@+id/music_mode_value" style="@style/NValue" />
+                    <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/GroupTitle" android:text="@string/music_playlist" />
+
+            <LinearLayout style="@style/NCard">
+                <LinearLayout android:id="@+id/music_list" style="@style/NRow" android:orientation="vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_import"
+                style="@style/NRow"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/row_ripple">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView style="@style/NRowTitle" android:text="@string/music_import" />
+                    <TextView style="@style/NRowSub" android:text="@string/music_import_hint" />
+                </LinearLayout>
+                <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <!-- ==================== 关于 ==================== -->
     <ScrollView
@@ -300,11 +360,6 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/menu_settings"
-            style="@style/MenuItem"
-            android:text="@string/menu_settings" />
-
-        <TextView
             android:id="@+id/menu_about"
             style="@style/MenuItem"
             android:text="@string/menu_about" />
@@ -336,4 +391,30 @@
         <TextView android:id="@+id/lang_fr" style="@style/MenuItem" android:text="@string/lang_fr" />
         <TextView android:id="@+id/lang_ru" style="@style/MenuItem" android:text="@string/lang_ru" />
     </LinearLayout>
+
+    <!-- ==================== 底部导航 ==================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:background="@color/nav_bg"
+        android:elevation="8dp">
+
+        <LinearLayout android:id="@+id/nav_home" style="@style/NavItem">
+            <ImageView android:id="@+id/nav_home_icon" style="@style/NavIcon" android:src="@drawable/ic_home" />
+            <TextView android:id="@+id/nav_home_text" style="@style/NavLabel" android:text="@string/nav_home" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/nav_settings" style="@style/NavItem">
+            <ImageView android:id="@+id/nav_settings_icon" style="@style/NavIcon" android:src="@drawable/ic_settings" />
+            <TextView android:id="@+id/nav_settings_text" style="@style/NavLabel" android:text="@string/page_settings" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/nav_fun" style="@style/NavItem">
+            <ImageView android:id="@+id/nav_fun_icon" style="@style/NavIcon" android:src="@drawable/ic_music" />
+            <TextView android:id="@+id/nav_fun_text" style="@style/NavLabel" android:text="@string/page_fun" />
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
+

@@ -5,6 +5,29 @@ each release also ships a self-contained source snapshot as a GitHub Release ass
 
 ---
 
+## 2.1.4 — 2026-10-03
+
+**Music player.** New "Music" tab with a built-in playlist of 5 royalty-free tracks
+(`assets/music/`) plus user-imported files via SAF (MP3 / WAV / FLAC, multi-select, persistable
+read permission). Playback runs in a foreground service so it survives screen-off and backgrounding,
+and the notification carries previous / play-pause / next. Three play modes: continue, repeat one,
+play once — persisted across restarts.
+
+**APK size** grew from 727 KB to **32.5 MB** because the bundled tracks are 30.3 MB. Deliberate
+trade-off, not an accident.
+
+**Bottom navigation restored** — Home / Settings / Music. The overflow menu (`⋮`) now holds
+About and Language only.
+
+**Overlay toggle merged** — "Start overlay" and "Stop overlay" became a single switch row with a
+live state indicator.
+
+**About page rewritten** — the joke credits were removed and replaced with formal development
+information and dependency / asset attributions. The character's spoken lines were left alone:
+those are a feature, not a joke.
+
+---
+
 ## 2.1.3 — 2026-10-02
 
 **Fixed: duplicated system title bar in dark mode.**

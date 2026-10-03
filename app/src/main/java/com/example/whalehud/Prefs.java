@@ -78,6 +78,62 @@ public final class Prefs {
     public static int appearance(Context c) { return sp(c).getInt("appearance", 0); }
     public static void setAppearance(Context c, int v) { sp(c).edit().putInt("appearance", v).apply(); }
 
+    // -------- 音乐 --------
+
+    /** 播放模式：0 = 自动连播，1 = 单曲循环，2 = 单次播放 */
+    public static int musicMode(Context c) { return sp(c).getInt("musicMode", 0); }
+    public static void setMusicMode(Context c, int v) { sp(c).edit().putInt("musicMode", v).apply(); }
+
+    /** 用户导入的曲目 */
+    public static class ImportedTrack {
+        public String title;
+        public String uri;
+        public ImportedTrack(String t, String u) { title = t; uri = u; }
+    }
+
+    public static java.util.List<ImportedTrack> importedTracks(Context c) {
+        java.util.List<ImportedTrack> out = new java.util.ArrayList<ImportedTrack>();
+        String raw = sp(c).getString("musicImported", "[]");
+        try {
+            org.json.JSONArray arr = new org.json.JSONArray(raw);
+            for (int i = 0; i < arr.length(); i++) {
+                org.json.JSONObject o = arr.getJSONObject(i);
+                out.add(new ImportedTrack(o.optString("title"), o.optString("uri")));
+            }
+        } catch (Exception ignored) { }
+        return out;
+    }
+
+    public static void addImportedTrack(Context c, String title, String uri) {
+        java.util.List<ImportedTrack> list = importedTracks(c);
+        for (ImportedTrack t : list) {
+            if (uri.equals(t.uri)) return;      // 去重
+        }
+        list.add(new ImportedTrack(title, uri));
+        saveImported(c, list);
+    }
+
+    public static void removeImportedTrack(Context c, String uri) {
+        java.util.List<ImportedTrack> list = importedTracks(c);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (uri.equals(list.get(i).uri)) list.remove(i);
+        }
+        saveImported(c, list);
+    }
+
+    private static void saveImported(Context c, java.util.List<ImportedTrack> list) {
+        org.json.JSONArray arr = new org.json.JSONArray();
+        try {
+            for (ImportedTrack t : list) {
+                org.json.JSONObject o = new org.json.JSONObject();
+                o.put("title", t.title);
+                o.put("uri", t.uri);
+                arr.put(o);
+            }
+        } catch (Exception ignored) { }
+        sp(c).edit().putString("musicImported", arr.toString()).apply();
+    }
+
     // -------- 悬浮窗行为 --------
     /** 刷新间隔（秒），默认 5 秒求"实时感" */
     public static int interval(Context c) { return sp(c).getInt("interval", 5); }

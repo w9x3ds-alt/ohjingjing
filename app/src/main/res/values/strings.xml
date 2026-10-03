@@ -5,7 +5,7 @@
     <!-- ===== 首页 ===== -->
     <string name="home_title_1">鲸鲸</string>
     <string name="home_title_2">余额表</string>
-    <string name="home_subtitle">v2.1.3 · DeepSeek 余额悬浮窗</string>
+    <string name="home_subtitle">v2.1.4 · DeepSeek 余额悬浮窗</string>
     <string name="perm_granted">● 悬浮窗权限已授予</string>
     <string name="perm_denied">● 悬浮窗权限未授予</string>
     <string name="label_endpoint">接口</string>
@@ -81,7 +81,7 @@
 
     <string name="group_app">应用</string>
     <string name="label_version">版本</string>
-    <string name="version_value">2.1.3</string>
+    <string name="version_value">2.1.4</string>
     <string name="label_developer">开发者</string>
     <string name="developer_value">dheye62</string>
     <string name="label_license">开源许可证</string>
@@ -92,11 +92,11 @@
     <string name="icon_value">由项目贡献者提供</string>
 
     <string name="group_contributors">贡献者</string>
-    <string name="contributors_intro">以下人员为本项目做出了不可磨灭的贡献——写代码的、报 bug 的、被余额吓到的，每一种都是贡献。我们在此郑重列出并感谢所有贡献者。</string>
-    <string name="contributors_core_title">核心贡献者</string>
-    <string name="contributors_thanks_title">特别鸣谢</string>
-    <string name="contributors_core" formatted="false">鲸鲸\n唯一出镜人员。工作内容：蹲在屏幕角落、被点击、被抖动、念台词。本季度 KPI：不糊。\n\ndheye62\n需求方、测试方、验收方，以及全项目唯一有资格说出「AI 味太重」的人。\n\nAI 助手\n贡献了 100% 的代码，以及 100% 的 bug。曾在一场关于「某个产品是不是钓鱼」的辩论中惜败，从此学会了先拉一手源再开口。\n\nDeepSeek V4.1 Flash\n每次刷新余额都要出席一次。从不出错，也从不说话。</string>
-    <string name="contributors_thanks">Minecraft —— 提供了掉血红闪与骨折音效的行业标准。\n\n那只被抠掉的「哦鲸鲸…」气泡 —— 你曾经是主角，现在我们自己画。\n\narm64 版 aapt —— 在一堆跑不起来的 x86_64 工具里，你是唯一肯干活的。\n\n1.1.1.1 —— 虽然 UDP 53 从来没通过，但你一直守在那里。</string>
+    <string name="contributors_intro">本项目为个人开源作品，面向所有需要监控 API 余额的场景。以下列出开发信息与技术依赖。</string>
+    <string name="contributors_core_title">开发与维护</string>
+    <string name="contributors_thanks_title">技术依赖与素材来源</string>
+    <string name="contributors_core">dheye62\n项目作者：需求定义、界面设计、功能验证与发布维护。\n\nAI 助手\n协助代码实现、文档撰写与多语言翻译。</string>
+    <string name="contributors_thanks">Android Framework —— 应用基于原生框架实现，未引入 AndroidX 等第三方依赖。\n\naapt / javac / R8 / zipalign / apksigner —— 构建工具链。\n\nPython + Pillow —— 图像处理脚本。\n\nMinecraft 音效（© Mojang Studios）与角色形象 —— 分别归原作者所有，仅用于个人非商业用途，不适用本项目 MIT 许可。</string>
 
     <string name="group_danger">危险区域</string>
     <string name="action_stop">停止悬浮窗</string>
@@ -154,4 +154,29 @@
     <string name="action_stop_sub">从屏幕上收起鲸鲸</string>
     <string name="section_status">当前状态</string>
     <string name="section_control">控制</string>
+    <!-- ===== 娱乐 / 音乐 ===== -->
+    <string name="page_fun">娱乐</string>
+    <string name="section_music">音乐</string>
+    <string name="music_nothing">还没有在播放</string>
+    <string name="music_playing">正在播放</string>
+    <string name="music_paused">已暂停</string>
+    <string name="music_play">播放</string>
+    <string name="music_pause">暂停</string>
+    <string name="music_prev">上一首</string>
+    <string name="music_next">下一首</string>
+    <string name="music_stop">停止</string>
+    <string name="music_mode">播放模式</string>
+    <string name="music_mode_sequence">自动连播</string>
+    <string name="music_mode_loop">单曲循环</string>
+    <string name="music_mode_once">单次播放</string>
+    <string name="music_playlist">播放列表</string>
+    <string name="music_import">从文件导入</string>
+    <string name="music_import_hint">支持 MP3 / WAV / FLAC，可多选</string>
+    <string name="music_imported">已导入</string>
+    <string name="music_builtin">内置</string>
+    <string name="music_remove">移除</string>
+    <string name="noti_music_channel">音乐播放</string>
+    <string name="overlay_switch">悬浮窗开关</string>
+    <string name="overlay_on">已开启，鲸鲸正在屏幕上</string>
+    <string name="overlay_off">已关闭，点一下叫鲸鲸出来</string>
 </resources>

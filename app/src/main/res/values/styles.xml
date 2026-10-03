@@ -114,6 +114,46 @@
         <item name="android:lineSpacingExtra">2dp</item>
     </style>
 
+    <!-- 底部导航项 -->
+    <style name="NavItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/nav_ripple</item>
+    </style>
+
+    <style name="NavIcon">
+        <item name="android:layout_width">23dp</item>
+        <item name="android:layout_height">23dp</item>
+    </style>
+
+    <style name="NavLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!-- 音乐控制键 -->
+    <style name="MusicCtrl">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:background">@drawable/menu_item_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="MusicCtrlPrimary" parent="MusicCtrl">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
     <!-- 右上角弹出菜单里的一项 -->
     <style name="MenuItem">
         <item name="android:layout_width">match_parent</item>

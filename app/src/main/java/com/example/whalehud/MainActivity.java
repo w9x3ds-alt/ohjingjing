@@ -42,13 +42,46 @@ public class MainActivity extends Activity {
 
     private static final int VIEW_HOME = 0;
     private static final int VIEW_SETTINGS = 1;
-    private static final int VIEW_ABOUT = 2;
+    private static final int VIEW_FUN = 2;
+    private static final int VIEW_ABOUT = 3;
+
+    /** 音乐文件选择 */
+    private static final int REQ_PICK_AUDIO = 1001;
 
     private WebView settingsView;
-    private ScrollView pageHome, pageInfo;
+    private ScrollView pageHome, pageInfo, pageFun;
     private LinearLayout menuPanel, langPanel;
     private ImageView btnMenu, btnBack;
     private View menuScrim;
+
+    // 底部导航
+    private LinearLayout navHome, navSettings, navFun;
+
+    // 娱乐页
+    private TextView musicNow, musicState, musicModeValue, overlaySwitchTitle, overlaySwitchSub;
+    private LinearLayout musicList;
+    private View btnPlay, btnStop;
+
+    private MusicService music;                 // 绑定到的音乐服务（可能为 null）
+    private final MusicService.Listener musicListener = new MusicService.Listener() {
+        @Override public void onMusicStateChanged() {
+            runOnUiThread(new Runnable() {
+                @Override public void run() { refreshMusicUi(); }
+            });
+        }
+    };
+    private final android.content.ServiceConnection musicConn =
+            new android.content.ServiceConnection() {
+        @Override public void onServiceConnected(android.content.ComponentName n, android.os.IBinder b) {
+            music = ((MusicService.LocalBinder) b).get();
+            music.setListener(musicListener);
+            music.reloadPlaylist();
+            refreshMusicUi();
+        }
+        @Override public void onServiceDisconnected(android.content.ComponentName n) {
+            music = null;
+        }
+    };
     private TextView tvEndpoint, tvIntervalInfo, tvKeyState, tvStyleSub, btnPerm, hudBalance;
 
     private int curView = -1;
@@ -66,7 +99,18 @@ public class MainActivity extends Activity {
 
         pageHome = findViewById(R.id.page_home);
         pageInfo = findViewById(R.id.page_info);
+        pageFun = findViewById(R.id.page_fun);
         settingsView = findViewById(R.id.page_settings);
+        navHome = findViewById(R.id.nav_home);
+        navSettings = findViewById(R.id.nav_settings);
+        navFun = findViewById(R.id.nav_fun);
+
+        musicNow = findViewById(R.id.music_now);
+        musicState = findViewById(R.id.music_state);
+        musicModeValue = findViewById(R.id.music_mode_value);
+        musicList = findViewById(R.id.music_list);
+        btnPlay = findViewById(R.id.btn_play);
+        btnStop = findViewById(R.id.btn_stop_music);
         menuPanel = findViewById(R.id.menu_panel);
         langPanel = findViewById(R.id.lang_panel);
         menuScrim = findViewById(R.id.menu_scrim);
@@ -86,23 +130,27 @@ public class MainActivity extends Activity {
         setupSettingsWebView();
         setupMenu();
 
+        navHome.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { switchView(VIEW_HOME, true); }
+        });
+        navSettings.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { switchView(VIEW_SETTINGS, true); }
+        });
+        navFun.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { switchView(VIEW_FUN, true); }
+        });
+
+        setupMusic();
+
         switchView(VIEW_HOME, false);
 
         btnPerm.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) { askOverlayPermission(); }
         });
         findViewById(R.id.btn_show).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                send(HudService.ACTION_SHOW);
-                toast(getString(R.string.msg_show_requested));
-            }
+            @Override public void onClick(View v) { toggleOverlay(); }
         });
-        findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                send(HudService.ACTION_EXIT);
-                toast(getString(R.string.msg_stopped));
-            }
-        });
+
         findViewById(R.id.btn_style).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 int s = (Prefs.style(MainActivity.this) == 0) ? 1 : 0;
@@ -162,13 +210,6 @@ public class MainActivity extends Activity {
             @Override public void onClick(View v) { hideMenus(); }
         });
         setupScrollHide();
-
-        findViewById(R.id.menu_settings).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                hideMenus();
-                switchView(VIEW_SETTINGS, true);
-            }
-        });
         findViewById(R.id.menu_about).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 hideMenus();
@@ -273,7 +314,7 @@ public class MainActivity extends Activity {
         if (curView == idx && !animate) {
             // 首次进入仍需设置可见性
         }
-        View[] views = {pageHome, settingsView, pageInfo};
+        View[] views = {pageHome, settingsView, pageFun, pageInfo};
         for (int i = 0; i < views.length; i++) {
             View v = views[i];
             if (i == idx) {
@@ -294,6 +335,20 @@ public class MainActivity extends Activity {
                 v.setVisibility(View.GONE);
             }
         }
+        // 底部导航高亮（娱乐与设置在底部；关于是二级页面，不高亮）
+        LinearLayout[] navs = {navHome, navSettings, navFun};
+        int[] navIdx = {VIEW_HOME, VIEW_SETTINGS, VIEW_FUN};
+        int active = getResources().getColor(R.color.nav_active);
+        int inactive = getResources().getColor(R.color.nav_inactive);
+        int[][] navIcon = {{R.id.nav_home_icon, R.id.nav_settings_icon, R.id.nav_fun_icon}};
+        int[][] navText = {{R.id.nav_home_text, R.id.nav_settings_text, R.id.nav_fun_text}};
+        for (int i = 0; i < navs.length; i++) {
+            boolean on = (idx == navIdx[i]);
+            ((ImageView) findViewById(navIcon[0][i]))
+                    .setColorFilter(on ? active : inactive, android.graphics.PorterDuff.Mode.SRC_IN);
+            ((TextView) findViewById(navText[0][i])).setTextColor(on ? active : inactive);
+        }
+
         boolean home = (idx == VIEW_HOME);
         btnMenu.animate().cancel();
         btnMenu.setAlpha(1f);
@@ -524,6 +579,17 @@ public class MainActivity extends Activity {
 
     private void updateHomeInfo() {
         if (tvEndpoint == null) return;
+
+        // 悬浮窗开关的状态显示
+        boolean on = HudService.visible;
+        TextView sub = findViewById(R.id.overlay_switch_sub);
+        TextView st = findViewById(R.id.overlay_switch_state);
+        if (sub != null) sub.setText(on ? R.string.overlay_on : R.string.overlay_off);
+        if (st != null) {
+            st.setText(on ? "●" : "○");
+            st.setTextColor(getResources().getColor(on ? R.color.accent : R.color.text_hint));
+        }
+
         String url = Prefs.url(this);
         tvEndpoint.setText(url.replace("https://", "").replace("/user/balance", ""));
         tvIntervalInfo.setText(getString(R.string.interval_seconds, Prefs.interval(this)));
@@ -612,6 +678,199 @@ public class MainActivity extends Activity {
                 }
             }
         });
+    }
+
+    // ---------------- 悬浮窗开关 ----------------
+
+    /** 一个开关：开着就关，关着就开 */
+    private void toggleOverlay() {
+        if (HudService.visible) {
+            send(HudService.ACTION_EXIT);
+            toast(getString(R.string.msg_stopped));
+        } else {
+            send(HudService.ACTION_SHOW);
+            toast(getString(R.string.msg_show_requested));
+        }
+        updateHomeInfo();
+    }
+
+    // ---------------- 音乐 ----------------
+
+    private void setupMusic() {
+        findViewById(R.id.btn_prev).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { musicAction(MusicService.ACTION_PREV); }
+        });
+        findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { musicAction(MusicService.ACTION_NEXT); }
+        });
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { musicAction(MusicService.ACTION_PLAY_PAUSE); }
+        });
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { musicAction(MusicService.ACTION_STOP); }
+        });
+        findViewById(R.id.row_music_mode).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { pickMusicMode(); }
+        });
+        findViewById(R.id.btn_import).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { pickAudio(); }
+        });
+        refreshMusicUi();
+    }
+
+    private void musicAction(String action) {
+        Intent i = new Intent(this, MusicService.class);
+        i.setAction(action);
+        startForegroundService(i);
+    }
+
+    private void pickMusicMode() {
+        String[] modes = {
+                getString(R.string.music_mode_sequence),
+                getString(R.string.music_mode_loop),
+                getString(R.string.music_mode_once),
+        };
+        new android.app.AlertDialog.Builder(this)
+                .setTitle(R.string.music_mode)
+                .setItems(modes, new android.content.DialogInterface.OnClickListener() {
+                    @Override public void onClick(android.content.DialogInterface d, int which) {
+                        if (music != null) music.setMode(which);
+                        else {
+                            Prefs.setMusicMode(MainActivity.this, which);
+                            MusicService.playMode = which;
+                        }
+                        refreshMusicUi();
+                    }
+                })
+                .show();
+    }
+
+    /** 选音频文件：SAF，多选，取持久读权限 */
+    private void pickAudio() {
+        Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("audio/*");
+        i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        try {
+            startActivityForResult(i, REQ_PICK_AUDIO);
+        } catch (Exception e) {
+            toast(getString(R.string.music_import_hint));
+        }
+    }
+
+    @Override protected void onActivityResult(int req, int res, Intent data) {
+        super.onActivityResult(req, res, data);
+        if (req != REQ_PICK_AUDIO || res != RESULT_OK || data == null) return;
+        java.util.ArrayList<android.net.Uri> picked = new java.util.ArrayList<android.net.Uri>();
+        if (data.getClipData() != null) {
+            android.content.ClipData cd = data.getClipData();
+            for (int i = 0; i < cd.getItemCount(); i++) picked.add(cd.getItemAt(i).getUri());
+        } else if (data.getData() != null) {
+            picked.add(data.getData());
+        }
+        for (android.net.Uri u : picked) {
+            try {
+                getContentResolver().takePersistableUriPermission(u, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } catch (Exception ignored) { }
+            Prefs.addImportedTrack(this, displayName(u), u.toString());
+        }
+        if (music != null) music.reloadPlaylist();
+        refreshMusicUi();
+    }
+
+    private String displayName(android.net.Uri u) {
+        String last = u.getLastPathSegment();
+        if (last == null) return "audio";
+        int slash = last.lastIndexOf('/');
+        if (slash >= 0) last = last.substring(slash + 1);
+        int dot = last.lastIndexOf('.');
+        return dot > 0 ? last.substring(0, dot) : last;
+    }
+
+    /** 刷新音乐区（曲目列表自己重建，不依赖服务是否已绑定） */
+    private void refreshMusicUi() {
+        if (musicNow == null) return;
+
+        String title = MusicService.currentTitle;
+        musicNow.setText(title == null || title.isEmpty()
+                ? getString(R.string.music_nothing) : title);
+        musicState.setText(MusicService.playing ? R.string.music_playing : R.string.music_paused);
+
+        if (btnPlay instanceof TextView) {
+            ((TextView) btnPlay).setText(MusicService.playing ? "\u23F8" : "\u25B6");
+        }
+        int[] modeStr = {R.string.music_mode_sequence, R.string.music_mode_loop, R.string.music_mode_once};
+        int m = MusicService.playMode;
+        musicModeValue.setText(modeStr[m < 0 ? 0 : (m > 2 ? 2 : m)]);
+
+        buildPlaylistUi();
+    }
+
+    private void buildPlaylistUi() {
+        if (musicList == null) return;
+        musicList.removeAllViews();
+
+        java.util.List<String> titles = new java.util.ArrayList<String>();
+        java.util.List<Boolean> imported = new java.util.ArrayList<Boolean>();
+
+        try {
+            String[] names = getAssets().list("music");
+            if (names != null) {
+                java.util.Arrays.sort(names);
+                for (String n : names) {
+                    String l = n.toLowerCase();
+                    if (l.endsWith(".mp3") || l.endsWith(".wav") || l.endsWith(".flac")) {
+                        int dot = n.lastIndexOf('.');
+                        titles.add(dot > 0 ? n.substring(0, dot) : n);
+                        imported.add(Boolean.FALSE);
+                    }
+                }
+            }
+        } catch (Exception ignored) { }
+
+        for (Prefs.ImportedTrack t : Prefs.importedTracks(this)) {
+            titles.add(t.title);
+            imported.add(Boolean.TRUE);
+        }
+
+        android.view.LayoutInflater inf = android.view.LayoutInflater.from(this);
+        for (int i = 0; i < titles.size(); i++) {
+            View row = inf.inflate(R.layout.music_row, musicList, false);
+            ((TextView) row.findViewById(R.id.music_row_title)).setText(titles.get(i));
+            ((TextView) row.findViewById(R.id.music_row_tag)).setText(
+                    imported.get(i) ? R.string.music_imported : R.string.music_builtin);
+
+            if (i == MusicService.currentIndex) {
+                int accent = getResources().getColor(R.color.accent);
+                ((TextView) row.findViewById(R.id.music_row_title)).setTextColor(accent);
+                ((TextView) row.findViewById(R.id.music_row_icon)).setTextColor(accent);
+            }
+
+            final int idx = i;
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Intent it = new Intent(MainActivity.this, MusicService.class);
+                    it.setAction(MusicService.ACTION_PLAY_PAUSE);
+                    it.putExtra(MusicService.EXTRA_INDEX, idx);
+                    startForegroundService(it);
+                }
+            });
+            musicList.addView(row);
+        }
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+        Intent i = new Intent(this, MusicService.class);
+        try {
+            bindService(i, musicConn, Context.BIND_AUTO_CREATE);
+        } catch (Exception ignored) { }
+    }
+
+    @Override protected void onStop() {
+        super.onStop();
+        try { unbindService(musicConn); } catch (Exception ignored) { }
+        music = null;
     }
 
     private void toast(String s) {

@@ -4,7 +4,7 @@
 
     <string name="home_title_1">Кит</string>
     <string name="home_title_2">HUD</string>
-    <string name="home_subtitle">v2.1.3 · Оверлей баланса DeepSeek</string>
+    <string name="home_subtitle">v2.1.4 · Оверлей баланса DeepSeek</string>
     <string name="perm_granted">● Разрешение на наложение получено</string>
     <string name="perm_denied">● Разрешение на наложение не получено</string>
     <string name="label_endpoint">Эндпоинт</string>
@@ -76,7 +76,7 @@
     <string name="page_info">О программе</string>
     <string name="group_app">Приложение</string>
     <string name="label_version">Версия</string>
-    <string name="version_value">2.1.3</string>
+    <string name="version_value">2.1.4</string>
     <string name="label_developer">Разработчик</string>
     <string name="developer_value">dheye62</string>
     <string name="label_license">Лицензия</string>
@@ -87,11 +87,11 @@
     <string name="icon_value">Предоставлена участником проекта</string>
 
     <string name="group_contributors">Участники</string>
-    <string name="contributors_intro">Эти люди внесли неизгладимый вклад в проект — писали код, сообщали об ошибках или просто пугались баланса. Любой вклад важен. Мы перечисляем и благодарим их здесь.</string>
-    <string name="contributors_core_title">Основные участники</string>
-    <string name="contributors_thanks_title">Особая благодарность</string>
-    <string name="contributors_core" formatted="false">Кит\nЕдинственная звезда экрана. Обязанности: сидеть в углу, получать нажатия, трястись, произносить реплики. KPI квартала: не размываться.\n\ndheye62\nТребования, тестирование, приёмка — и единственный в проекте, кто вправе сказать «это выглядит как ИИ».\n\nИИ-ассистент\nНаписал 100 % кода и 100 % ошибок. Проиграл спор о том, является ли один продукт фишингом, и с тех пор сначала читает исходники, а потом говорит.\n\nDeepSeek V4.1 Flash\nПрисутствует при каждом обновлении баланса. Никогда не ошибается и никогда не говорит.</string>
-    <string name="contributors_thanks">Minecraft — за отраслевой стандарт вспышки урона и звука ломающейся кости.\n\nВырезанный нами пузырь «Ох, кит…» — ты был звездой; теперь мы рисуем свой.\n\narm64 aapt — среди груды неработающих x86_64-инструментов ты единственный согласился работать.\n\n1.1.1.1 — UDP-порт 53 так и не открылся, но ты остался.</string>
+    <string name="contributors_intro">Это личный открытый проект для всех, кому нужно следить за балансом API. Ниже приведены сведения о разработке и технические зависимости.</string>
+    <string name="contributors_core_title">Разработка</string>
+    <string name="contributors_thanks_title">Зависимости и материалы</string>
+    <string name="contributors_core">dheye62\nАвтор проекта: требования, дизайн интерфейса, проверка, поддержка релизов.\n\nИИ-ассистент\nПомощь в реализации, документации и переводах.</string>
+    <string name="contributors_thanks">Android Framework — приложение на нативном фреймворке, без сторонних зависимостей вроде AndroidX.\n\naapt / javac / R8 / zipalign / apksigner — цепочка сборки.\n\nPython + Pillow — скрипты обработки изображений.\n\nЗвуки Minecraft (© Mojang Studios) и иллюстрация персонажа принадлежат их авторам. Только личное некоммерческое использование; лицензия MIT этого проекта на них не распространяется.</string>
 
     <string name="group_danger">Опасная зона</string>
     <string name="action_stop">Остановить оверлей</string>
@@ -141,4 +141,29 @@
     <string name="action_stop_sub">Убрать кита с экрана</string>
     <string name="section_status">Текущее состояние</string>
     <string name="section_control">Управление</string>
+    <!-- ===== Развлечения / Музыка ===== -->
+    <string name="page_fun">Музыка</string>
+    <string name="section_music">Музыка</string>
+    <string name="music_nothing">Ничего не играет</string>
+    <string name="music_playing">Играет</string>
+    <string name="music_paused">Пауза</string>
+    <string name="music_play">Играть</string>
+    <string name="music_pause">Пауза</string>
+    <string name="music_prev">Предыдущий</string>
+    <string name="music_next">Следующий</string>
+    <string name="music_stop">Остановить</string>
+    <string name="music_mode">Режим воспроизведения</string>
+    <string name="music_mode_sequence">По порядку</string>
+    <string name="music_mode_loop">Повтор одного</string>
+    <string name="music_mode_once">Один раз</string>
+    <string name="music_playlist">Плейлист</string>
+    <string name="music_import">Импорт из файлов</string>
+    <string name="music_import_hint">MP3 / WAV / FLAC, можно выбрать несколько</string>
+    <string name="music_imported">Импортировано</string>
+    <string name="music_builtin">Встроено</string>
+    <string name="music_remove">Удалить</string>
+    <string name="noti_music_channel">Воспроизведение музыки</string>
+    <string name="overlay_switch">Оверлей</string>
+    <string name="overlay_on">Включён — кит на экране</string>
+    <string name="overlay_off">Выключен — нажмите, чтобы вернуть кита</string>
 </resources>

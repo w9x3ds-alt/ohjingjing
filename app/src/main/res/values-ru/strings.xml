@@ -4,7 +4,7 @@
 
     <string name="home_title_1">Кит</string>
     <string name="home_title_2">HUD</string>
-    <string name="home_subtitle">v2.1.4 · Оверлей баланса DeepSeek</string>
+    <string name="home_subtitle">User-2.1.5 · Оверлей баланса DeepSeek</string>
     <string name="perm_granted">● Разрешение на наложение получено</string>
     <string name="perm_denied">● Разрешение на наложение не получено</string>
     <string name="label_endpoint">Эндпоинт</string>
@@ -76,7 +76,7 @@
     <string name="page_info">О программе</string>
     <string name="group_app">Приложение</string>
     <string name="label_version">Версия</string>
-    <string name="version_value">2.1.4</string>
+    <string name="version_value">User-2.1.5</string>
     <string name="label_developer">Разработчик</string>
     <string name="developer_value">dheye62</string>
     <string name="label_license">Лицензия</string>
@@ -166,4 +166,13 @@
     <string name="overlay_switch">Оверлей</string>
     <string name="overlay_on">Включён — кит на экране</string>
     <string name="overlay_off">Выключен — нажмите, чтобы вернуть кита</string>
+    <string name="group_log">Диагностика</string>
+    <string name="action_log">Журнал работы</string>
+    <string name="action_log_sub">Передайте разработчику при проблемах</string>
+    <string name="log_copy">Копировать</string>
+    <string name="log_share">Поделиться</string>
+    <string name="log_clear">Очистить</string>
+    <string name="log_close">Закрыть</string>
+    <string name="log_empty">Записей нет</string>
+    <string name="log_copied">Журнал скопирован в буфер</string>
 </resources>

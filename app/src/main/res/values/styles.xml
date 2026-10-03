@@ -137,21 +137,22 @@
     </style>
 
     <!-- 音乐控制键 -->
+    <!-- 音乐控制键：用矢量图标，避免 emoji 被系统渲染成彩色方块 -->
     <style name="MusicCtrl">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:tint">@color/text_primary</item>
         <item name="android:background">@drawable/menu_item_bg</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>
 
     <style name="MusicCtrlPrimary" parent="MusicCtrl">
-        <item name="android:textSize">26sp</item>
-        <item name="android:textColor">@color/accent</item>
+        <item name="android:padding">9dp</item>
+        <item name="android:tint">@color/accent</item>
     </style>
 
     <!-- 右上角弹出菜单里的一项 -->

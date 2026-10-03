@@ -4,7 +4,7 @@
 
     <string name="home_title_1">Baleine</string>
     <string name="home_title_2">HUD</string>
-    <string name="home_subtitle">v2.1.4 · Superposition du solde DeepSeek</string>
+    <string name="home_subtitle">User-2.1.5 · Superposition du solde DeepSeek</string>
     <string name="perm_granted">● Autorisation de superposition accordée</string>
     <string name="perm_denied">● Autorisation de superposition non accordée</string>
     <string name="label_endpoint">Point d\'accès</string>
@@ -76,7 +76,7 @@
     <string name="page_info">À propos</string>
     <string name="group_app">Application</string>
     <string name="label_version">Version</string>
-    <string name="version_value">2.1.4</string>
+    <string name="version_value">User-2.1.5</string>
     <string name="label_developer">Développeur</string>
     <string name="developer_value">dheye62</string>
     <string name="label_license">Licence</string>
@@ -166,4 +166,13 @@
     <string name="overlay_switch">Superposition</string>
     <string name="overlay_on">Activée — la baleine est à l\'écran</string>
     <string name="overlay_off">Désactivée — touchez pour la faire revenir</string>
+    <string name="group_log">Diagnostic</string>
+    <string name="action_log">Journal d\'exécution</string>
+    <string name="action_log_sub">À transmettre au développeur en cas de problème</string>
+    <string name="log_copy">Copier</string>
+    <string name="log_share">Partager</string>
+    <string name="log_clear">Effacer</string>
+    <string name="log_close">Fermer</string>
+    <string name="log_empty">Aucune entrée</string>
+    <string name="log_copied">Journal copié dans le presse-papiers</string>
 </resources>

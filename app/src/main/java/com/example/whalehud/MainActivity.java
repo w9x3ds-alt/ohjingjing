@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
 
     // 底部导航
     private LinearLayout navHome, navSettings, navFun;
+    private View navBar;                    // 底部导航整条
 
     // 娱乐页
     private TextView musicNow, musicState, musicModeValue, overlaySwitchTitle, overlaySwitchSub;
@@ -87,6 +88,7 @@ public class MainActivity extends Activity {
     private int curView = -1;
     private boolean entranceDone = false;
     private final ExecutorService pool = Executors.newSingleThreadExecutor();
+    private final android.os.Handler uiHandler = new android.os.Handler(android.os.Looper.getMainLooper());
 
     /** 切语言后由系统回调，必须在这里重新包装 Context 才生效 */
     @Override protected void attachBaseContext(Context base) {
@@ -95,6 +97,8 @@ public class MainActivity extends Activity {
 
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
+        AppLog.init(this);
+        AppLog.i("Main", "onCreate");
         setContentView(R.layout.activity_main);
 
         pageHome = findViewById(R.id.page_home);
@@ -104,6 +108,7 @@ public class MainActivity extends Activity {
         navHome = findViewById(R.id.nav_home);
         navSettings = findViewById(R.id.nav_settings);
         navFun = findViewById(R.id.nav_fun);
+        navBar = findViewById(R.id.nav_bar);
 
         musicNow = findViewById(R.id.music_now);
         musicState = findViewById(R.id.music_state);
@@ -141,6 +146,13 @@ public class MainActivity extends Activity {
         });
 
         setupMusic();
+
+        View btnLog = findViewById(R.id.btn_log);
+        if (btnLog != null) {
+            btnLog.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { showLogDialog(); }
+            });
+        }
 
         switchView(VIEW_HOME, false);
 
@@ -335,6 +347,11 @@ public class MainActivity extends Activity {
                 v.setVisibility(View.GONE);
             }
         }
+        // 「关于」是二级页面，底部导航整条收起，否则它会浮在内容上还能点
+        if (navBar != null) {
+            navBar.setVisibility(idx == VIEW_ABOUT ? View.GONE : View.VISIBLE);
+        }
+
         // 底部导航高亮（娱乐与设置在底部；关于是二级页面，不高亮）
         LinearLayout[] navs = {navHome, navSettings, navFun};
         int[] navIdx = {VIEW_HOME, VIEW_SETTINGS, VIEW_FUN};
@@ -580,15 +597,7 @@ public class MainActivity extends Activity {
     private void updateHomeInfo() {
         if (tvEndpoint == null) return;
 
-        // 悬浮窗开关的状态显示
-        boolean on = HudService.visible;
-        TextView sub = findViewById(R.id.overlay_switch_sub);
-        TextView st = findViewById(R.id.overlay_switch_state);
-        if (sub != null) sub.setText(on ? R.string.overlay_on : R.string.overlay_off);
-        if (st != null) {
-            st.setText(on ? "●" : "○");
-            st.setTextColor(getResources().getColor(on ? R.color.accent : R.color.text_hint));
-        }
+        applyOverlayState(HudService.visible);
 
         String url = Prefs.url(this);
         tvEndpoint.setText(url.replace("https://", "").replace("/user/balance", ""));
@@ -682,16 +691,31 @@ public class MainActivity extends Activity {
 
     // ---------------- 悬浮窗开关 ----------------
 
-    /** 一个开关：开着就关，关着就开 */
+    /**
+     * 一个开关：开着就关，关着就开。
+     *
+     * 注意：HudService.visible 是服务里异步改的，点完立刻读会拿到旧值
+     * （表现就是"刚点开启，界面仍显示已关闭"）。所以这里先乐观更新 UI，
+     * 过一会儿再按服务的真实状态校准一次。
+     */
     private void toggleOverlay() {
-        if (HudService.visible) {
-            send(HudService.ACTION_EXIT);
-            toast(getString(R.string.msg_stopped));
-        } else {
-            send(HudService.ACTION_SHOW);
-            toast(getString(R.string.msg_show_requested));
+        boolean want = !HudService.visible;
+        send(want ? HudService.ACTION_SHOW : HudService.ACTION_EXIT);
+        toast(getString(want ? R.string.msg_show_requested : R.string.msg_stopped));
+        applyOverlayState(want);                       // 先按用户的意图显示
+        uiHandler.postDelayed(new Runnable() {         // 再按真实状态校准
+            @Override public void run() { updateHomeInfo(); }
+        }, 900);
+    }
+
+    private void applyOverlayState(boolean on) {
+        TextView sub = findViewById(R.id.overlay_switch_sub);
+        TextView st = findViewById(R.id.overlay_switch_state);
+        if (sub != null) sub.setText(on ? R.string.overlay_on : R.string.overlay_off);
+        if (st != null) {
+            st.setText(on ? "●" : "○");
+            st.setTextColor(getResources().getColor(on ? R.color.accent : R.color.text_hint));
         }
-        updateHomeInfo();
     }
 
     // ---------------- 音乐 ----------------
@@ -796,8 +820,9 @@ public class MainActivity extends Activity {
                 ? getString(R.string.music_nothing) : title);
         musicState.setText(MusicService.playing ? R.string.music_playing : R.string.music_paused);
 
-        if (btnPlay instanceof TextView) {
-            ((TextView) btnPlay).setText(MusicService.playing ? "\u23F8" : "\u25B6");
+        if (btnPlay instanceof ImageView) {
+            ((ImageView) btnPlay).setImageResource(
+                    MusicService.playing ? R.drawable.ic_pause : R.drawable.ic_play);
         }
         int[] modeStr = {R.string.music_mode_sequence, R.string.music_mode_loop, R.string.music_mode_once};
         int m = MusicService.playMode;
@@ -871,6 +896,47 @@ public class MainActivity extends Activity {
         super.onStop();
         try { unbindService(musicConn); } catch (Exception ignored) { }
         music = null;
+    }
+
+    // ---------------- 运行日志 ----------------
+
+    private void showLogDialog() {
+        final String text = AppLog.dump();
+        final android.widget.ScrollView sv = new android.widget.ScrollView(this);
+        final TextView tv = new TextView(this);
+        tv.setText(text.isEmpty() ? getString(R.string.log_empty) : text);
+        tv.setTextSize(10.5f);
+        tv.setTypeface(android.graphics.Typeface.MONOSPACE);
+        tv.setTextIsSelectable(true);
+        int pad = dp(14);
+        tv.setPadding(pad, pad, pad, pad);
+        sv.addView(tv);
+
+        new android.app.AlertDialog.Builder(this)
+                .setTitle(R.string.action_log)
+                .setView(sv)
+                .setPositiveButton(R.string.log_copy, new android.content.DialogInterface.OnClickListener() {
+                    @Override public void onClick(android.content.DialogInterface d, int w) {
+                        android.content.ClipboardManager cm = (android.content.ClipboardManager)
+                                getSystemService(Context.CLIPBOARD_SERVICE);
+                        if (cm != null) {
+                            cm.setPrimaryClip(android.content.ClipData.newPlainText("whalehud-log", text));
+                            toast(getString(R.string.log_copied));
+                        }
+                    }
+                })
+                .setNeutralButton(R.string.log_share, new android.content.DialogInterface.OnClickListener() {
+                    @Override public void onClick(android.content.DialogInterface d, int w) {
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setType("text/plain");
+                        i.putExtra(Intent.EXTRA_SUBJECT, "WhaleHud log");
+                        i.putExtra(Intent.EXTRA_TEXT, text);
+                        try { startActivity(Intent.createChooser(i, getString(R.string.log_share))); }
+                        catch (Exception ignored) { }
+                    }
+                })
+                .setNegativeButton(R.string.log_close, null)
+                .show();
     }
 
     private void toast(String s) {

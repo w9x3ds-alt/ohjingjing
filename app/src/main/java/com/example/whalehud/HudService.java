@@ -145,6 +145,8 @@ public class HudService extends Service {
 
     @Override public void onCreate() {
         super.onCreate();
+        AppLog.init(this);
+        AppLog.i("Hud", "服务创建");
         wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         try {
             hurtSnd = MediaPlayer.create(this, R.raw.hit);
@@ -484,6 +486,7 @@ public class HudService extends Service {
                         @Override public void run() { apply(b); }
                     });
                 } catch (final Exception e) {
+                    AppLog.e("Hud", "取余额失败", e);
                     // 出错就保持上一次的数字，不再往悬浮窗上堆状态文字
                 }
             }
@@ -500,6 +503,7 @@ public class HudService extends Service {
             float delta = total - lastTotal;
             if (delta < 0f) {
                 final float drop = -delta;
+                AppLog.i("Hud", "余额减少 -" + fmt(drop));
                 hurt();                                    // 受伤反馈：音效 + 泛红 + 位移
                 ui.postDelayed(new Runnable() {            // 随后头顶弹数字
                     @Override public void run() { if (visible && drop > 0f) popDelta(drop); }

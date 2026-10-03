@@ -4,7 +4,7 @@
 
     <string name="home_title_1">Whale</string>
     <string name="home_title_2">HUD</string>
-    <string name="home_subtitle">v2.1.4 · DeepSeek balance overlay</string>
+    <string name="home_subtitle">User-2.1.5 · DeepSeek balance overlay</string>
     <string name="perm_granted">● Overlay permission granted</string>
     <string name="perm_denied">● Overlay permission not granted</string>
     <string name="label_endpoint">Endpoint</string>
@@ -76,7 +76,7 @@
     <string name="page_info">About</string>
     <string name="group_app">Application</string>
     <string name="label_version">Version</string>
-    <string name="version_value">2.1.4</string>
+    <string name="version_value">User-2.1.5</string>
     <string name="label_developer">Developer</string>
     <string name="developer_value">dheye62</string>
     <string name="label_license">License</string>
@@ -166,4 +166,13 @@
     <string name="overlay_switch">Overlay</string>
     <string name="overlay_on">On — the whale is on your screen</string>
     <string name="overlay_off">Off — tap to bring the whale back</string>
+    <string name="group_log">Diagnostics</string>
+    <string name="action_log">Runtime log</string>
+    <string name="action_log_sub">Hand it to the developer when something breaks</string>
+    <string name="log_copy">Copy</string>
+    <string name="log_share">Share</string>
+    <string name="log_clear">Clear</string>
+    <string name="log_close">Close</string>
+    <string name="log_empty">No log entries yet</string>
+    <string name="log_copied">Log copied to clipboard</string>
 </resources>

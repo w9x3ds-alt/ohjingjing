@@ -18,7 +18,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="34dp"
-            android:paddingBottom="30dp">
+            android:paddingBottom="92dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="34dp"
-            android:paddingBottom="30dp">
+            android:paddingBottom="92dp">
 
             <TextView style="@style/PageTitle" android:text="@string/page_fun" />
 
@@ -175,10 +175,14 @@
                 </LinearLayout>
 
                 <LinearLayout style="@style/NRow">
-                    <TextView android:id="@+id/btn_prev" style="@style/MusicCtrl" android:text="⏮" />
-                    <TextView android:id="@+id/btn_play" style="@style/MusicCtrlPrimary" android:text="▶" />
-                    <TextView android:id="@+id/btn_next" style="@style/MusicCtrl" android:text="⏭" />
-                    <TextView android:id="@+id/btn_stop_music" style="@style/MusicCtrl" android:text="■" />
+                    <ImageView android:id="@+id/btn_prev" style="@style/MusicCtrl"
+                        android:src="@drawable/ic_prev" />
+                    <ImageView android:id="@+id/btn_play" style="@style/MusicCtrlPrimary"
+                        android:src="@drawable/ic_play" />
+                    <ImageView android:id="@+id/btn_next" style="@style/MusicCtrl"
+                        android:src="@drawable/ic_next" />
+                    <ImageView android:id="@+id/btn_stop_music" style="@style/MusicCtrl"
+                        android:src="@drawable/ic_stop" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -230,7 +234,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="34dp"
-            android:paddingBottom="30dp">
+            android:paddingBottom="92dp">
 
             <TextView style="@style/PageTitle" android:text="@string/menu_about" />
 
@@ -260,6 +264,25 @@
                 <LinearLayout style="@style/NRow" android:orientation="vertical">
                     <TextView style="@style/NRowTitle" android:text="@string/label_icon" />
                     <TextView style="@style/NRowSub" android:text="@string/icon_value" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/GroupTitle" android:text="@string/group_log" />
+
+            <LinearLayout style="@style/NCard">
+                <LinearLayout
+                    android:id="@+id/btn_log"
+                    style="@style/NRow"
+                    android:background="@drawable/row_ripple">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView style="@style/NRowTitle" android:text="@string/action_log" />
+                        <TextView style="@style/NRowSub" android:text="@string/action_log_sub" />
+                    </LinearLayout>
+                    <TextView style="@style/NValue" android:text="@string/arrow" android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -394,6 +417,7 @@
 
     <!-- ==================== 底部导航 ==================== -->
     <LinearLayout
+        android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_gravity="bottom"

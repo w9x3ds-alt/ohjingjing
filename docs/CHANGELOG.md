@@ -5,6 +5,40 @@ each release also ships a self-contained source snapshot as a GitHub Release ass
 
 ---
 
+## 2.1.5 — 2026-10-03
+
+**Fixed: music crash — the cause was a missing permission, not threading.**
+
+2.1.4 made playback asynchronous, yet playback still failed. Device logs showed the chain never
+reached `prepareAsync()` at all. The real culprit was one line:
+
+```java
+player.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+```
+
+`setWakeMode()` requires the `WAKE_LOCK` permission, which was never declared. It threw
+`SecurityException`, the line had no try-catch, and `playIndex()` aborted right there.
+Fixed by declaring the permission and wrapping the call defensively.
+
+**Fixed: bottom navigation overlapping content** — it is an overlay child of the root
+`FrameLayout`. Page bottom padding raised to 92 dp, and the whole bar is now hidden on
+secondary pages (previously it was merely not highlighted, so it stayed tappable).
+
+**Fixed: overlay switch showing the opposite state** — `HudService.visible` updates
+asynchronously, so reading it immediately after a tap returned the stale value. Now the UI updates
+optimistically and re-syncs after 900 ms.
+
+**Audio re-encoded: 30.4 MB → 6.7 MB** at 22.05 kHz / mono / 64 kbps. APK 32.5 MB → 7.4 MB.
+
+**New: in-app log** (About → Diagnostics → Runtime log; copy / share / clear). Memory ring buffer
+plus `filesDir/whalehud.log`, with a global uncaught-exception handler. This is the tool that made
+finding the crash above possible.
+
+**Play controls switched from emoji to vector icons** — `▶ ⏸` etc. were rendered as colour emoji
+by Android.
+
+---
+
 ## 2.1.4 — 2026-10-03
 
 **Music player.** New "Music" tab with a built-in playlist of 5 royalty-free tracks

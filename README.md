@@ -63,7 +63,7 @@ A small character sits in the corner of your screen — when the balance drops, 
 
 ## Install
 
-1. Download `WhaleHud-2.1.4.apk` from the Releases page
+1. Download `WhaleHud-2.1.5.apk` from the Releases page
 2. Open the app and tap the permission pill on the home screen to grant overlay access
 3. Enter your own DeepSeek API key on the settings page
 4. Back on the home screen, tap **Start overlay**
@@ -151,6 +151,7 @@ costs.
 | 2.1.2 | 2026-10-02 | Fix option list rendering (JSON array sent as string), fix stale lines after language switch, UI clarity |
 | 2.1.3 | 2026-10-02 | Fix duplicated system title bar in dark mode (`values-night` theme replaces the light one wholesale) |
 | 2.1.4 | 2026-10-03 | Music player (built-in + imported, background playback, 3 play modes), bottom navigation restored, overlay toggle merged, About page rewritten |
+| 2.1.5 | 2026-10-03 | Fix music crash (`setWakeMode` without `WAKE_LOCK`), bottom nav overlap & visibility, overlay toggle state; audio re-encoded 30.4 MB → 6.7 MB; in-app log added |
 
 See [`docs/CHANGELOG.md`](docs/CHANGELOG.md) for details, and [`docs/NOTES.md`](docs/NOTES.md)
 for the development log — including the approaches that failed.

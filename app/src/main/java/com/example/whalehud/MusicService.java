@@ -96,10 +96,15 @@ public class MusicService extends Service {
     }
 
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
+        // 必须尽早进入前台：由 startForegroundService 拉起的服务若 5 秒内没调
+        // startForeground()，系统会直接杀进程（播放失败时根本走不到那一步）。
+        startForegroundSafely();
+
         String action = (intent == null) ? null : intent.getAction();
+        AppLog.i("Music", "onStartCommand action=" + action
+                + " tracks=" + playlist.size() + " mode=" + playMode);
         if (action == null) {
             // 只是把服务拉起来，不自动播放
-            startForegroundSafely();
             return START_STICKY;
         }
         switch (action) {
@@ -180,32 +185,47 @@ public class MusicService extends Service {
     }
 
     public void playIndex(int idx) {
-        if (idx < 0 || idx >= playlist.size()) return;
+        if (idx < 0 || idx >= playlist.size()) {
+            AppLog.w("Music", "playIndex 越界 idx=" + idx + " size=" + playlist.size());
+            return;
+        }
         currentIndex = idx;
         Track t = playlist.get(idx);
+        AppLog.i("Music", "准备播放 [" + idx + "] " + t.title
+                + (t.isAsset() ? " (内置 " + t.assetName + ")" : " (导入 " + t.uri + ")"));
         releasePlayer();
         prepared = false;
         starting = true;
 
         player = new MediaPlayer();
+        AppLog.i("Music", "MediaPlayer 实例已创建");
         player.setAudioAttributes(new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_MEDIA)
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .build());
-        player.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+        // setWakeMode 需要 WAKE_LOCK 权限；即便权限在，也别让它有机会炸掉整条播放链路
+        try {
+            player.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+        } catch (Throwable wakeErr) {
+            AppLog.w("Music", "setWakeMode 失败（不影响播放）: " + wakeErr);
+        }
 
         try {
             if (t.isAsset()) {
                 AssetFileDescriptor fd = getAssets().openFd("music/" + t.assetName);
+                AppLog.i("Music", "asset fd ok: len=" + fd.getLength());
                 player.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                 fd.close();
             } else {
                 player.setDataSource(this, t.uri);
             }
-            player.prepare();
-        } catch (Exception e) {
+            AppLog.i("Music", "setDataSource 成功");
+        } catch (Throwable e) {
+            // 数据源打不开：直接跳过这首，别让服务卡在半路
+            AppLog.e("Music", "setDataSource 失败: " + t.title, e);
             starting = false;
-            currentTitle = t.title;
+            currentTitle = "";
+            playing = false;
             notifyListener();
             return;
         }
@@ -215,15 +235,47 @@ public class MusicService extends Service {
                 onTrackFinished();
             }
         });
+        player.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override public boolean onError(MediaPlayer mp, int what, int extra) {
+                // 解码/IO 出错：停掉当前曲目，不要抛给系统
+                AppLog.e("Music", "MediaPlayer onError what=" + what + " extra=" + extra);
+                starting = false;
+                playing = false;
+                notifyListener();
+                updateNotification();
+                return true;                    // 已处理，阻止系统再抛
+            }
+        });
 
         currentTitle = t.title;
-        prepared = true;
-        starting = false;
-        player.start();
-        playing = true;
-        startForegroundSafely();
+        starting = true;
         notifyListener();
-        updateNotification();
+
+        // 必须异步：prepare() 是同步阻塞的，在主线程调用会卡住 UI（严重时 ANR）
+        player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override public void onPrepared(MediaPlayer mp) {
+                AppLog.i("Music", "onPrepared，开始播放");
+                prepared = true;
+                starting = false;
+                try {
+                    mp.start();
+                    playing = true;
+                } catch (Exception ignored) {
+                    playing = false;
+                }
+                startForegroundSafely();
+                notifyListener();
+                updateNotification();
+            }
+        });
+        try {
+            player.prepareAsync();
+        } catch (Throwable e) {
+            AppLog.e("Music", "prepareAsync 抛异常", e);
+            starting = false;
+            playing = false;
+            notifyListener();
+        }
     }
 
     private void onTrackFinished() {
@@ -299,7 +351,10 @@ public class MusicService extends Service {
     private void startForegroundSafely() {
         try {
             startForeground(NOTI_ID, buildNotification());
-        } catch (Exception ignored) { }
+        } catch (Throwable t) {
+            // 这一步失败 = 服务没进前台 = 5 秒后必被系统杀掉，必须留痕
+            AppLog.e("Music", "startForeground 失败", t);
+        }
     }
 
     private void updateNotification() {

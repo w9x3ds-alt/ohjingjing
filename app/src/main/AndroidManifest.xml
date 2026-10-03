@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- MediaPlayer.setWakeMode() 需要它，否则抛 SecurityException -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- 只为判断"今天是不是法定节假日 / 调休上班"，好让空闲/高峰时段判定准确 -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
